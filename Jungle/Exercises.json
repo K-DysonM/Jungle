@@ -1,0 +1,26 @@
+Exercises: [
+	{
+		"name": "Bent Over Row (Dumbbell)",
+		"body_part": "Back"
+	},
+	{
+		"name": "Leg Extension (Machine)",
+		"body_part": "Legs"
+	},
+	{
+		"name": "Tricep Chest Press",
+		"body_part": "Shoulders"
+	}, 
+	{
+		"name": "Bench Press (Dumbbell)",
+		"body_part": "Chest"
+	},
+	{
+		"name": "Cycling (Indoor)",
+		"body_part": "Cardio"
+	},
+	{
+		"name": "Seated Row (Machine)",
+		"body_part": "Back"
+	}
+]
