@@ -12,6 +12,7 @@ class HeaderSearchView: UIView {
 	var searchBar: UISearchBar = {
 		var searchBar = UISearchBar()
 		searchBar.placeholder = "Search"
+		searchBar.showsCancelButton = true
 		searchBar.autocorrectionType = .no
 		return searchBar
 	}()
@@ -31,10 +32,10 @@ class HeaderSearchView: UIView {
 		addSubview(searchBar)
 		searchBar.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-			searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
-			searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-			searchBar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8)
+			searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+			searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+			searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+			searchBar.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
 			
 		])
 	}

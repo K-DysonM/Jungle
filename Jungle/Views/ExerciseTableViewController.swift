@@ -15,11 +15,6 @@ class ExerciseTableViewController: UIViewController {
 	var subscriptions = Set<AnyCancellable>()
 	
 	// MARK: - UI Elements
-	var sample: HeaderSearchView = {
-		var sample = HeaderSearchView()
-		sample.backgroundColor = .systemBackground
-		return sample
-	}()
 	var tableView: UITableView = {
 		var tableView = UITableView()
 		return tableView
@@ -29,11 +24,8 @@ class ExerciseTableViewController: UIViewController {
 	override func loadView() {
 		view = UIView()
 		view.backgroundColor = .systemBackground
-		
 		view.addSubview(tableView)
-		view.addSubview(sample)
 	
-		sample.translatesAutoresizingMaskIntoConstraints = false
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate(
 			[
@@ -41,12 +33,8 @@ class ExerciseTableViewController: UIViewController {
 				tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
 				tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 				tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-				sample.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-				sample.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-				sample.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-				sample.heightAnchor.constraint(equalToConstant: 75),
-				sample.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor)
 			])
+		
 	}
 	
 	override func viewDidLoad() {
@@ -63,29 +51,16 @@ class ExerciseTableViewController: UIViewController {
 			}
 		}.store(in: &subscriptions)
 		
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(toggleSample))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(toggleSample))
 		
-		let temp = HeaderSearchView(frame: CGRect(x: 0, y: 0, width: 1, height: 75))
-		tableView.tableHeaderView = temp
 
-		
-		self.observer = self.navigationController?.navigationBar.observe(\.bounds, options: [.new], changeHandler: { (navigationBar, changes) in
-		
-			if let height = changes.newValue?.height {
-				print(height)
-				if height > 44.0 {
-						//Large Title
-					self.sample.isHidden = true
-				} else {
-						//Small Title
-					self.sample.isHidden = false
-				}
-			}
-		})
 	}
 	
 	@objc func toggleSample() {
-		sample.isHidden.toggle()
+		let searchExercisesViewController = SearchExercisesViewController()
+		searchExercisesViewController.modalPresentationStyle = .overFullScreen
+		present(searchExercisesViewController, animated: false)
+		
 	}
 }
 // MARK: - TableView Datasource
@@ -124,4 +99,5 @@ extension ExerciseTableViewController: UITableViewDelegate {
 		print("Selected \(indexPath.row)")
 	}
 }
+
 

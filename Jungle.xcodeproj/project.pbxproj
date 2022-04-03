@@ -19,6 +19,7 @@
 		B2D67F3C27F7765C00ECC969 /* Exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = B2D67F3B27F7765C00ECC969 /* Exercises.json */; };
 		B2D67F3E27F7767E00ECC969 /* ExercisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F3D27F7767E00ECC969 /* ExercisesViewModel.swift */; };
 		B2D67F4227F7B0D400ECC969 /* HeaderSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F4127F7B0D400ECC969 /* HeaderSearchView.swift */; };
+		B2D67F4427F93B7000ECC969 /* SearchExercisesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F4327F93B7000ECC969 /* SearchExercisesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		B2D67F3B27F7765C00ECC969 /* Exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Exercises.json; path = ../../../../Exercises.json; sourceTree = "<group>"; };
 		B2D67F3D27F7767E00ECC969 /* ExercisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewModel.swift; sourceTree = "<group>"; };
 		B2D67F4127F7B0D400ECC969 /* HeaderSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSearchView.swift; sourceTree = "<group>"; };
+		B2D67F4327F93B7000ECC969 /* SearchExercisesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchExercisesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				B2D67F1F27F75FF700ECC969 /* ExerciseTableViewController.swift */,
 				B2D67F3327F7641000ECC969 /* ExerciseTableViewCell.swift */,
 				B2D67F4127F7B0D400ECC969 /* HeaderSearchView.swift */,
+				B2D67F4327F93B7000ECC969 /* SearchExercisesViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				B2D67F1C27F75FF700ECC969 /* AppDelegate.swift in Sources */,
 				B2D67F3A27F766DA00ECC969 /* Exercise.swift in Sources */,
 				B2D67F1E27F75FF700ECC969 /* SceneDelegate.swift in Sources */,
+				B2D67F4427F93B7000ECC969 /* SearchExercisesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
