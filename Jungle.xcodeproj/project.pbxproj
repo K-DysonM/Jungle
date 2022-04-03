@@ -18,8 +18,6 @@
 		B2D67F3A27F766DA00ECC969 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F3927F766DA00ECC969 /* Exercise.swift */; };
 		B2D67F3C27F7765C00ECC969 /* Exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = B2D67F3B27F7765C00ECC969 /* Exercises.json */; };
 		B2D67F3E27F7767E00ECC969 /* ExercisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F3D27F7767E00ECC969 /* ExercisesViewModel.swift */; };
-		B2D67F4227F7B0D400ECC969 /* HeaderSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F4127F7B0D400ECC969 /* HeaderSearchView.swift */; };
-		B2D67F4427F93B7000ECC969 /* SearchExercisesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F4327F93B7000ECC969 /* SearchExercisesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +34,6 @@
 		B2D67F3927F766DA00ECC969 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		B2D67F3B27F7765C00ECC969 /* Exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Exercises.json; path = ../../../../Exercises.json; sourceTree = "<group>"; };
 		B2D67F3D27F7767E00ECC969 /* ExercisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewModel.swift; sourceTree = "<group>"; };
-		B2D67F4127F7B0D400ECC969 /* HeaderSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSearchView.swift; sourceTree = "<group>"; };
-		B2D67F4327F93B7000ECC969 /* SearchExercisesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchExercisesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +66,7 @@
 		B2D67F1A27F75FF700ECC969 /* Jungle */ = {
 			isa = PBXGroup;
 			children = (
+				B2D67F4527FA186E00ECC969 /* Utils */,
 				B2D67F3827F766D000ECC969 /* Models */,
 				B2D67F3527F7669100ECC969 /* ViewModels */,
 				B2D67F3227F763E900ECC969 /* Views */,
@@ -89,8 +86,6 @@
 			children = (
 				B2D67F1F27F75FF700ECC969 /* ExerciseTableViewController.swift */,
 				B2D67F3327F7641000ECC969 /* ExerciseTableViewCell.swift */,
-				B2D67F4127F7B0D400ECC969 /* HeaderSearchView.swift */,
-				B2D67F4327F93B7000ECC969 /* SearchExercisesViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -110,6 +105,13 @@
 				B2D67F3927F766DA00ECC969 /* Exercise.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B2D67F4527FA186E00ECC969 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,12 +189,10 @@
 				B2D67F3E27F7767E00ECC969 /* ExercisesViewModel.swift in Sources */,
 				B2D67F3727F7669F00ECC969 /* ExerciseViewModel.swift in Sources */,
 				B2D67F3427F7641000ECC969 /* ExerciseTableViewCell.swift in Sources */,
-				B2D67F4227F7B0D400ECC969 /* HeaderSearchView.swift in Sources */,
 				B2D67F2027F75FF700ECC969 /* ExerciseTableViewController.swift in Sources */,
 				B2D67F1C27F75FF700ECC969 /* AppDelegate.swift in Sources */,
 				B2D67F3A27F766DA00ECC969 /* Exercise.swift in Sources */,
 				B2D67F1E27F75FF700ECC969 /* SceneDelegate.swift in Sources */,
-				B2D67F4427F93B7000ECC969 /* SearchExercisesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

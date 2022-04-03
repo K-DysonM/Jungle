@@ -9,8 +9,15 @@ import Foundation
 import Combine
 
 class ExercisesViewModel {
-	//@Published var exercises: [ExerciseViewModel] = []
+	// Original data that doesn't change on search/filter
+	private var originalExercisesDict: [String: [ExerciseViewModel]] = [:]{
+		didSet{
+			originalExercisesOrder = originalExercisesDict.keys.sorted()
+		}
+	}
+	private var originalExercisesOrder: [String] = []
 	
+	// Data that does change on search/filter to be used by UI componenets
 	@Published var exercisesDict: [String: [ExerciseViewModel]] = [:] {
 		didSet {
 			exercisesOrder = exercisesDict.keys.sorted()
@@ -42,6 +49,7 @@ class ExercisesViewModel {
 						}
 					}
 				}
+				originalExercisesDict = exercisesDict
 				
 			} catch  {
 				print(error)
@@ -50,5 +58,13 @@ class ExercisesViewModel {
 		} else {
 			print("Invalid filepath")
 		}
+	}
+	
+	// Searching for exercises methods
+	func searchExercisesFor(_ searchText: String) {
+		exercisesDict = originalExercisesDict.mapValues { $0.filter { $0.name.hasPrefix(searchText) }}.filter{!$0.value.isEmpty}
+	}
+	func clearSearch() {
+		exercisesDict = originalExercisesDict
 	}
 }

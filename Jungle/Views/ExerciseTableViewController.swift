@@ -10,7 +10,6 @@ import Combine
 
 class ExerciseTableViewController: UIViewController {
 
-	var observer: NSKeyValueObservation?
 	let exercisesViewModel = ExercisesViewModel()
 	var subscriptions = Set<AnyCancellable>()
 	
@@ -20,13 +19,21 @@ class ExerciseTableViewController: UIViewController {
 		return tableView
 	}()
 	
+	let searchController: UISearchController = {
+		let searchController = UISearchController(searchResultsController: nil)
+		searchController.searchBar.placeholder = "Search"
+		searchController.searchBar.searchBarStyle = .minimal
+		searchController.obscuresBackgroundDuringPresentation = false
+		searchController.definesPresentationContext = true
+		return searchController
+	}()
 	
 	override func loadView() {
 		view = UIView()
 		view.backgroundColor = .systemBackground
 		view.addSubview(tableView)
-	
 		tableView.translatesAutoresizingMaskIntoConstraints = false
+		
 		NSLayoutConstraint.activate(
 			[
 				tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -34,7 +41,6 @@ class ExerciseTableViewController: UIViewController {
 				tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 				tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
 			])
-		
 	}
 	
 	override func viewDidLoad() {
@@ -51,17 +57,12 @@ class ExerciseTableViewController: UIViewController {
 			}
 		}.store(in: &subscriptions)
 		
-		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(toggleSample))
 		
-
+		searchController.searchResultsUpdater = self
+		navigationItem.searchController = searchController
+		navigationItem.hidesSearchBarWhenScrolling = false
 	}
 	
-	@objc func toggleSample() {
-		let searchExercisesViewController = SearchExercisesViewController()
-		searchExercisesViewController.modalPresentationStyle = .overFullScreen
-		present(searchExercisesViewController, animated: false)
-		
-	}
 }
 // MARK: - TableView Datasource
 extension ExerciseTableViewController: UITableViewDataSource {
@@ -100,4 +101,14 @@ extension ExerciseTableViewController: UITableViewDelegate {
 	}
 }
 
+extension ExerciseTableViewController: UISearchResultsUpdating {
+	func updateSearchResults(for searchController: UISearchController) {
+		let searchText = searchController.searchBar.text!
+		if searchText.isEmpty {
+			exercisesViewModel.clearSearch()
+		} else {
+			exercisesViewModel.searchExercisesFor(searchText)
+		}
+	}
+}
 
