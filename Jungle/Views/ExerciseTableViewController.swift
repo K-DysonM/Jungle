@@ -98,6 +98,12 @@ extension ExerciseTableViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		print("Selected \(indexPath.row)")
+		let key = exercisesViewModel.exercisesOrder[indexPath.section]
+		if let exerciseViewModel = exercisesViewModel.exercisesDict[key]?[indexPath.row] {
+			let exerciseDetailVC = ExerciseDetailViewController(viewModel: exerciseViewModel)
+			exerciseDetailVC.modalTransitionStyle = .coverVertical
+			present(exerciseDetailVC, animated: true)
+		}
 	}
 }
 

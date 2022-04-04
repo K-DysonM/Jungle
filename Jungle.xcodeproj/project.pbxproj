@@ -18,6 +18,11 @@
 		B2D67F3A27F766DA00ECC969 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F3927F766DA00ECC969 /* Exercise.swift */; };
 		B2D67F3C27F7765C00ECC969 /* Exercises.json in Resources */ = {isa = PBXBuildFile; fileRef = B2D67F3B27F7765C00ECC969 /* Exercises.json */; };
 		B2D67F3E27F7767E00ECC969 /* ExercisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F3D27F7767E00ECC969 /* ExercisesViewModel.swift */; };
+		B2D67F4B27FA3FC300ECC969 /* ExerciseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F4A27FA3FC300ECC969 /* ExerciseDetailViewController.swift */; };
+		B2D67F4D27FA495200ECC969 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F4C27FA495200ECC969 /* HistoryTableViewCell.swift */; };
+		B2D67F5327FA557B00ECC969 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = B2D67F5227FA557B00ECC969 /* Charts */; };
+		B2D67F5527FA723A00ECC969 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F5427FA723A00ECC969 /* HistoryViewModel.swift */; };
+		B2D67F5727FA75A300ECC969 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F5627FA75A300ECC969 /* Date+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +39,10 @@
 		B2D67F3927F766DA00ECC969 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		B2D67F3B27F7765C00ECC969 /* Exercises.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Exercises.json; path = ../../../../Exercises.json; sourceTree = "<group>"; };
 		B2D67F3D27F7767E00ECC969 /* ExercisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisesViewModel.swift; sourceTree = "<group>"; };
+		B2D67F4A27FA3FC300ECC969 /* ExerciseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailViewController.swift; sourceTree = "<group>"; };
+		B2D67F4C27FA495200ECC969 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
+		B2D67F5427FA723A00ECC969 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		B2D67F5627FA75A300ECC969 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D67F5327FA557B00ECC969 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,8 +94,11 @@
 		B2D67F3227F763E900ECC969 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B2D67F4E27FA4EA900ECC969 /* SwiftUI */,
 				B2D67F1F27F75FF700ECC969 /* ExerciseTableViewController.swift */,
 				B2D67F3327F7641000ECC969 /* ExerciseTableViewCell.swift */,
+				B2D67F4A27FA3FC300ECC969 /* ExerciseDetailViewController.swift */,
+				B2D67F4C27FA495200ECC969 /* HistoryTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -95,6 +108,7 @@
 			children = (
 				B2D67F3627F7669F00ECC969 /* ExerciseViewModel.swift */,
 				B2D67F3D27F7767E00ECC969 /* ExercisesViewModel.swift */,
+				B2D67F5427FA723A00ECC969 /* HistoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -110,8 +124,16 @@
 		B2D67F4527FA186E00ECC969 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B2D67F5627FA75A300ECC969 /* Date+Extensions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B2D67F4E27FA4EA900ECC969 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +152,9 @@
 			dependencies = (
 			);
 			name = Jungle;
+			packageProductDependencies = (
+				B2D67F5227FA557B00ECC969 /* Charts */,
+			);
 			productName = Jungle;
 			productReference = B2D67F1827F75FF700ECC969 /* Jungle.app */;
 			productType = "com.apple.product-type.application";
@@ -158,6 +183,9 @@
 				Base,
 			);
 			mainGroup = B2D67F0F27F75FF700ECC969;
+			packageReferences = (
+				B2D67F5127FA557B00ECC969 /* XCRemoteSwiftPackageReference "Charts" */,
+			);
 			productRefGroup = B2D67F1927F75FF700ECC969 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -186,9 +214,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D67F4D27FA495200ECC969 /* HistoryTableViewCell.swift in Sources */,
+				B2D67F5727FA75A300ECC969 /* Date+Extensions.swift in Sources */,
 				B2D67F3E27F7767E00ECC969 /* ExercisesViewModel.swift in Sources */,
 				B2D67F3727F7669F00ECC969 /* ExerciseViewModel.swift in Sources */,
 				B2D67F3427F7641000ECC969 /* ExerciseTableViewCell.swift in Sources */,
+				B2D67F4B27FA3FC300ECC969 /* ExerciseDetailViewController.swift in Sources */,
+				B2D67F5527FA723A00ECC969 /* HistoryViewModel.swift in Sources */,
 				B2D67F2027F75FF700ECC969 /* ExerciseTableViewController.swift in Sources */,
 				B2D67F1C27F75FF700ECC969 /* AppDelegate.swift in Sources */,
 				B2D67F3A27F766DA00ECC969 /* Exercise.swift in Sources */,
@@ -412,6 +444,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B2D67F5127FA557B00ECC969 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B2D67F5227FA557B00ECC969 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2D67F5127FA557B00ECC969 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B2D67F1027F75FF700ECC969 /* Project object */;
 }

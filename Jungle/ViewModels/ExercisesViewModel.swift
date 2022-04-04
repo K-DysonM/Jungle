@@ -62,7 +62,7 @@ class ExercisesViewModel {
 	
 	// Searching for exercises methods
 	func searchExercisesFor(_ searchText: String) {
-		exercisesDict = originalExercisesDict.mapValues { $0.filter { $0.name.hasPrefix(searchText) }}.filter{!$0.value.isEmpty}
+		exercisesDict = originalExercisesDict.mapValues { $0.filter { $0.name.hasPrefix(searchText) || $0.bodyPart.hasPrefix(searchText) }}.filter{!$0.value.isEmpty}
 	}
 	func clearSearch() {
 		exercisesDict = originalExercisesDict

@@ -12,8 +12,13 @@ struct Exercise: Codable {
 	var body_part: String
 	var history: String
 	var image: String
+	var history_set: [History]? = []
 }
 
+struct History: Codable {
+	var time: Date
+	var best: Int
+}
 
 enum BodyPart: Codable {
 	case Back

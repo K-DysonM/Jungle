@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Charts
 
 class ExerciseViewModel {
 	private var exercise: Exercise
@@ -15,29 +16,35 @@ class ExerciseViewModel {
 	@Published var bodyPart: String
 	@Published var lastSet: String
 	@Published var image: String
+	@Published var history: [HistoryViewModel]
 	
 	init(exercise: Exercise) {
 		self.exercise = exercise
 		self.name = exercise.name
 		self.bodyPart = exercise.body_part
-//		switch exercise.body_part {
-//		case .Arms:
-//			self.bodyPart = "Arms"
-//		case .Back:
-//			self.bodyPart = "Back"
-//		case .Chest:
-//			self.bodyPart = "Chest"
-//		case .Core:
-//			self.bodyPart = "Core"
-//		case .Legs:
-//			self.bodyPart = "Legs"
-//		case .Shoulders:
-//			self.bodyPart = "Shoulders"
-//		default: //Leaving in case we add more body parts down the line
-//			self.bodyPart = "Other"
-//		}
 		self.lastSet = exercise.history
 		self.image = exercise.image
+		
+		var temp: [HistoryViewModel] = []
+		for _ in 1...5 {
+			temp.append(HistoryViewModel())
+		}
+		temp.sort {
+			$0.history.time.timeIntervalSince1970 > $1.history.time.timeIntervalSince1970
+		}
+		self.history = temp
+	}
+	
+	func getChartData() -> [ChartDataEntry] {
+		var chartData: [ChartDataEntry] = []
+		history.forEach { history in
+			let temp = ChartDataEntry(x: history.history.time.timeIntervalSince1970, y: Double(history.history.best))
+			chartData.append(temp)
+		}
+		chartData.sort {
+			$0.x < $1.x
+		}
+		return chartData
 	}
 	
 }
