@@ -31,41 +31,25 @@ class ExerciseDetailViewController: UIViewController {
 		var segmentControl = UISegmentedControl(items: ["History","Charts"])
 		return segmentControl
 	}()
-	
-	var historyTableView: UITableView = {
-		var tableview = UITableView()
-		return tableview
+	var historyVC: ExerciseHistoryViewController = {
+		let historyVC = ExerciseHistoryViewController()
+		historyVC.view.backgroundColor = .clear
+		return historyVC
 	}()
 	
-	var lineChartView: LineChartView = {
-		var linechart = LineChartView()
-		linechart.backgroundColor = .systemBackground
-		linechart.leftAxis.enabled = false
-		linechart.rightAxis.setLabelCount(2, force: true)
-		linechart.rightAxis.axisLineColor = .systemBackground
-		
-		linechart.xAxis.labelPosition = .bottom
-		linechart.xAxis.axisLineColor = .systemBackground
-		linechart.xAxis.drawGridLinesEnabled = false
-		
-		linechart.rightAxis.axisMinimum = 0
-		linechart.leftAxis.axisMinimum = 0
-		
-		linechart.pinchZoomEnabled = false
-		linechart.scaleXEnabled = false
-		linechart.scaleYEnabled = false
-		return linechart
+	var chartVC: ExerciseChartViewController = {
+		let chartVC = ExerciseChartViewController()
+		chartVC.view.backgroundColor = .clear
+		return chartVC
 	}()
 	
 	override func loadView() {
 		view = UIView()
-		view.backgroundColor = .systemBackground
-		[titleLabel, segmentControl, historyTableView, lineChartView].forEach {
+		view.backgroundColor = .secondarySystemBackground
+		[titleLabel, segmentControl].forEach {
 			view.addSubview($0)
 			$0.translatesAutoresizingMaskIntoConstraints = false
 		}
-		
-		
 		NSLayoutConstraint.activate([
 			titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
 			titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
@@ -75,55 +59,84 @@ class ExerciseDetailViewController: UIViewController {
 			segmentControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
 		])
 		
-		NSLayoutConstraint.activate([
-			historyTableView.topAnchor.constraint(equalTo: segmentControl.bottomAnchor,constant: 16),
-			historyTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-			historyTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-			historyTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-			lineChartView.topAnchor.constraint(equalTo: segmentControl.bottomAnchor,constant: 16),
-			lineChartView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-			lineChartView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-			lineChartView.heightAnchor.constraint(equalToConstant: 300)
-		])
 	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 		segmentControl.addTarget(self, action: #selector(segmentValueChanged(_:)), for: .valueChanged)
 		segmentControl.selectedSegmentIndex = 0
-		historyTableView.isHidden = false
-		lineChartView.isHidden = true
-		
+	
+		chartVC.view.isHidden = true
 		titleLabel.text = exerciseViewModel.name
-		historyTableView.dataSource = self
-		historyTableView.allowsSelection = false
-		historyTableView.register(HistoryTableViewCell.self, forCellReuseIdentifier: "Cell")
 		
 		setData()
+		addSegmentVC(historyVC)
+		addSegmentVC(chartVC)
+		chartVC.lineChartView.delegate = self
+		
+		
+		
+		
+		historyVC.historyTableView.dataSource = self
     }
+	func addSegmentVC (_ vc: UIViewController) {
+		addChild(vc)
+		self.view.addSubview(vc.view)
+		constrainViewEqual(holderView: self.view, view: vc.view)
+		vc.didMove(toParent: self)
+	}
+	func constrainViewEqual(holderView: UIView, view: UIView) {
+		view.translatesAutoresizingMaskIntoConstraints = false
+
+		let pinTop = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal,
+										toItem: segmentControl, attribute: .bottom, multiplier: 1.0, constant: 0)
+		let pinBottom = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal,
+										   toItem: holderView, attribute: .bottom, multiplier: 1.0, constant: 0)
+		let pinLeft = NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal,
+										 toItem: holderView, attribute: .left, multiplier: 1.0, constant: 8)
+		let pinRight = NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal,
+										  toItem: holderView, attribute: .right, multiplier: 1.0, constant: -8)
+		
+		holderView.addConstraints([pinTop, pinBottom, pinLeft, pinRight])
+	}
 
 	@objc func segmentValueChanged(_ sender: UISegmentedControl) {
 		switch sender.selectedSegmentIndex {
 			case 0:
-				historyTableView.isHidden = false
-				lineChartView.isHidden = true
+				historyVC.view.isHidden = false
+				chartVC.view.isHidden = true
 			case 1:
-				lineChartView.isHidden = false
-				historyTableView.isHidden = true
+				chartVC.view.isHidden = false
+				historyVC.view.isHidden = true
 			default:
 				print("not implemented")
 		}
 	}
 	
 	func setData() {
-		lineChartView.xAxis.valueFormatter = self
-		let set1 = LineChartDataSet(entries: exerciseViewModel.getChartData() , label: "Progress")
-		set1.colors = [UIColor.systemBlue]
-		set1.circleColors = [UIColor.systemBlue]
+		chartVC.lineChartView.xAxis.valueFormatter = self
+		let set1 = LineChartDataSet(entries: exerciseViewModel.getChartData())
+		set1.mode = .linear
+		set1.colors = [UIColor.systemGreen]
+		set1.circleColors = [UIColor.systemGreen]
 		set1.circleRadius = 4.0
 		set1.circleHoleRadius = 2.0
+		
+		//Setting area under line
+		let gradientColors = [UIColor.systemGreen.cgColor, UIColor.systemGreen.withAlphaComponent(0.2).cgColor] as CFArray // Colors of the gradient
+		let colorLocations:[CGFloat] = [1.0, 0.0] // Positioning of the gradient
+		let gradient = CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations) // Gradient Object
+		set1.fill = Fill.fillWithLinearGradient(gradient!, angle: 90.0) // Set the Gradient
+		set1.drawFilledEnabled = true // Draw the Gradient
+		
 		let data = LineChartData(dataSet: set1)
-		lineChartView.data = data
+		data.setDrawValues(false)
+		chartVC.lineChartView.data = data
+		chartVC.lineChartView.legend.enabled = false
+		
+		chartVC.lineChartView.data?.highlightEnabled = true
+		chartVC.lineChartView.fitScreen()
+		chartVC.lineChartView.notifyDataSetChanged()
 	}
 }
 
@@ -149,6 +162,7 @@ extension ExerciseDetailViewController: ChartViewDelegate {
 		print(entry)
 	}
 }
+// MARK: - AxisValueFormatter
 extension ExerciseDetailViewController: IAxisValueFormatter {
 	func stringForValue(_ value: Double, axis: AxisBase?) -> String {
 		let date = Date(timeIntervalSince1970: value)
@@ -157,3 +171,4 @@ extension ExerciseDetailViewController: IAxisValueFormatter {
 		return formatter3.string(from: date)
 	}
 }
+

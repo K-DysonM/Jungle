@@ -50,6 +50,12 @@ class HistoryTableViewCell: UITableViewCell {
 		return stackView
 	}()
 	
+	var background: UIView = {
+		var view = UIView()
+		view.backgroundColor = .clear
+		return view
+	}()
+	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		layoutUI()
@@ -65,20 +71,28 @@ class HistoryTableViewCell: UITableViewCell {
 		[title, subtitle, setTitle, setSubtitle].forEach {
 			stackView.addArrangedSubview($0)
 		}
-		
+		backgroundColor = .clear
+		self.addSubview(background)
 		self.addSubview(stackView)
+		stackView.backgroundColor = .systemBackground
+		background.backgroundColor = .systemBackground
+		background.layer.cornerRadius = 10.0
+		background.translatesAutoresizingMaskIntoConstraints = false
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate(
 			[
-				stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-				stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
-				stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-				stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+				background.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+				background.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
+				background.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
+				background.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+				stackView.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 8),
+				stackView.topAnchor.constraint(equalTo: background.safeAreaLayoutGuide.topAnchor, constant: 8),
+				stackView.trailingAnchor.constraint(equalTo: background.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+				stackView.bottomAnchor.constraint(equalTo: background.safeAreaLayoutGuide.bottomAnchor, constant: -8)
 			])
 		
 	}
-	
 	
 	// MARK: - Configure UI
 	func configure(viewModel: HistoryViewModel) {
