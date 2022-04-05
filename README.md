@@ -2,6 +2,10 @@
 A workout app that helps you track your workouts
 
 
+Iteration 0.121 - Refactoring and UI improvements on charts
+<p float="left">
+  <img alt="FirstScreen" src="https://user-images.githubusercontent.com/43551312/161784099-0920b3de-87a0-4ae1-9857-9f7ee3b92c2d.PNG" width="50%">
+</p>
 
 Iteration 0.12 - Search functionality and front end for charts
 <p float="left">
