@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		B23E0F5B27FD41730060E7CF /* CoreDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F5A27FD41730060E7CF /* CoreDataUtil.swift */; };
+		B23E0F5F27FD47C40060E7CF /* StartWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F5E27FD47C40060E7CF /* StartWorkoutViewController.swift */; };
+		B23E0F6127FD4E7A0060E7CF /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F6027FD4E7A0060E7CF /* WorkoutViewController.swift */; };
+		B23E0F6327FD52290060E7CF /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F6227FD52290060E7CF /* WorkoutTableViewController.swift */; };
+		B23E0F6527FD53340060E7CF /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F6427FD53340060E7CF /* WorkoutTableViewCell.swift */; };
+		B23E0F6727FD5D120060E7CF /* WorkoutTableHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F6627FD5D120060E7CF /* WorkoutTableHeaderFooterView.swift */; };
+		B23E0F6927FDEC170060E7CF /* WorkoutSetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F6827FDEC170060E7CF /* WorkoutSetTableViewCell.swift */; };
+		B23E0F6D27FDF8F40060E7CF /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F6C27FDF8F40060E7CF /* CircleView.swift */; };
+		B23E0F6F27FE00560060E7CF /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F6E27FE00560060E7CF /* UITextField+Extensions.swift */; };
 		B2D67F1C27F75FF700ECC969 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F1B27F75FF700ECC969 /* AppDelegate.swift */; };
 		B2D67F1E27F75FF700ECC969 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F1D27F75FF700ECC969 /* SceneDelegate.swift */; };
 		B2D67F2027F75FF700ECC969 /* ExerciseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F1F27F75FF700ECC969 /* ExerciseTableViewController.swift */; };
@@ -32,6 +40,14 @@
 
 /* Begin PBXFileReference section */
 		B23E0F5A27FD41730060E7CF /* CoreDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataUtil.swift; sourceTree = "<group>"; };
+		B23E0F5E27FD47C40060E7CF /* StartWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkoutViewController.swift; sourceTree = "<group>"; };
+		B23E0F6027FD4E7A0060E7CF /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
+		B23E0F6227FD52290060E7CF /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
+		B23E0F6427FD53340060E7CF /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		B23E0F6627FD5D120060E7CF /* WorkoutTableHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableHeaderFooterView.swift; sourceTree = "<group>"; };
+		B23E0F6827FDEC170060E7CF /* WorkoutSetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSetTableViewCell.swift; sourceTree = "<group>"; };
+		B23E0F6C27FDF8F40060E7CF /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		B23E0F6E27FE00560060E7CF /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		B2D67F1827F75FF700ECC969 /* Jungle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jungle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D67F1B27F75FF700ECC969 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2D67F1D27F75FF700ECC969 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +83,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B23E0F5C27FD45D70060E7CF /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				B2D67F1F27F75FF700ECC969 /* ExerciseTableViewController.swift */,
+				B2D67F4A27FA3FC300ECC969 /* ExerciseDetailViewController.swift */,
+				B2D67F5C27FB305B00ECC969 /* ExerciseHistoryViewController.swift */,
+				B2D67F5E27FB370C00ECC969 /* ExerciseChartViewController.swift */,
+			);
+			path = Exercises;
+			sourceTree = "<group>";
+		};
+		B23E0F5D27FD45E20060E7CF /* StartWorkout */ = {
+			isa = PBXGroup;
+			children = (
+				B23E0F5E27FD47C40060E7CF /* StartWorkoutViewController.swift */,
+				B23E0F6027FD4E7A0060E7CF /* WorkoutViewController.swift */,
+				B23E0F6227FD52290060E7CF /* WorkoutTableViewController.swift */,
+			);
+			path = StartWorkout;
+			sourceTree = "<group>";
+		};
+		B23E0F7027FE03DE0060E7CF /* AccessoryViews */ = {
+			isa = PBXGroup;
+			children = (
+				B2D67F5A27FB2AA200ECC969 /* ChartTitleView.swift */,
+				B23E0F6C27FDF8F40060E7CF /* CircleView.swift */,
+			);
+			path = AccessoryViews;
+			sourceTree = "<group>";
+		};
 		B2D67F0F27F75FF700ECC969 = {
 			isa = PBXGroup;
 			children = (
@@ -106,9 +152,9 @@
 		B2D67F3227F763E900ECC969 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B23E0F7027FE03DE0060E7CF /* AccessoryViews */,
 				B2D67F5927FB2A7000ECC969 /* TableViewCells */,
 				B2D67F5827FB2A5B00ECC969 /* ViewControllers */,
-				B2D67F5A27FB2AA200ECC969 /* ChartTitleView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				B2D67F5627FA75A300ECC969 /* Date+Extensions.swift */,
+				B23E0F6E27FE00560060E7CF /* UITextField+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -142,10 +189,8 @@
 		B2D67F5827FB2A5B00ECC969 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B2D67F1F27F75FF700ECC969 /* ExerciseTableViewController.swift */,
-				B2D67F4A27FA3FC300ECC969 /* ExerciseDetailViewController.swift */,
-				B2D67F5C27FB305B00ECC969 /* ExerciseHistoryViewController.swift */,
-				B2D67F5E27FB370C00ECC969 /* ExerciseChartViewController.swift */,
+				B23E0F5D27FD45E20060E7CF /* StartWorkout */,
+				B23E0F5C27FD45D70060E7CF /* Exercises */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -155,6 +200,9 @@
 			children = (
 				B2D67F4C27FA495200ECC969 /* HistoryTableViewCell.swift */,
 				B2D67F3327F7641000ECC969 /* ExerciseTableViewCell.swift */,
+				B23E0F6427FD53340060E7CF /* WorkoutTableViewCell.swift */,
+				B23E0F6627FD5D120060E7CF /* WorkoutTableHeaderFooterView.swift */,
+				B23E0F6827FDEC170060E7CF /* WorkoutSetTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -240,14 +288,22 @@
 				B2D67F4D27FA495200ECC969 /* HistoryTableViewCell.swift in Sources */,
 				B2D67F5727FA75A300ECC969 /* Date+Extensions.swift in Sources */,
 				B2D67F5B27FB2AA200ECC969 /* ChartTitleView.swift in Sources */,
+				B23E0F6527FD53340060E7CF /* WorkoutTableViewCell.swift in Sources */,
 				B2D67F3E27F7767E00ECC969 /* ExercisesViewModel.swift in Sources */,
 				B2D67F3727F7669F00ECC969 /* ExerciseViewModel.swift in Sources */,
+				B23E0F5F27FD47C40060E7CF /* StartWorkoutViewController.swift in Sources */,
+				B23E0F6D27FDF8F40060E7CF /* CircleView.swift in Sources */,
 				B2D67F3427F7641000ECC969 /* ExerciseTableViewCell.swift in Sources */,
+				B23E0F6F27FE00560060E7CF /* UITextField+Extensions.swift in Sources */,
+				B23E0F6927FDEC170060E7CF /* WorkoutSetTableViewCell.swift in Sources */,
 				B2D67F4B27FA3FC300ECC969 /* ExerciseDetailViewController.swift in Sources */,
+				B23E0F6727FD5D120060E7CF /* WorkoutTableHeaderFooterView.swift in Sources */,
 				B2D67F5527FA723A00ECC969 /* HistoryViewModel.swift in Sources */,
 				B2D67F2027F75FF700ECC969 /* ExerciseTableViewController.swift in Sources */,
 				B2D67F1C27F75FF700ECC969 /* AppDelegate.swift in Sources */,
 				B2E33E1527FC9DC1009FFB04 /* Jungle.xcdatamodeld in Sources */,
+				B23E0F6327FD52290060E7CF /* WorkoutTableViewController.swift in Sources */,
+				B23E0F6127FD4E7A0060E7CF /* WorkoutViewController.swift in Sources */,
 				B2D67F3A27F766DA00ECC969 /* Exercise.swift in Sources */,
 				B2D67F5D27FB305B00ECC969 /* ExerciseHistoryViewController.swift in Sources */,
 				B2D67F1E27F75FF700ECC969 /* SceneDelegate.swift in Sources */,

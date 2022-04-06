@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 
 class CoreDataUtil {
-	var manageObjectContext: NSManagedObjectContext!
+	private var manageObjectContext: NSManagedObjectContext!
 	
 	init() {
 		manageObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -31,6 +31,22 @@ class CoreDataUtil {
 			completionHandler(results, nil)
 		} catch {
 			completionHandler(nil, error)
+		}
+	}
+	
+	func postHistoryRandom(){
+		let history = HistoryEntity(context: manageObjectContext)
+		
+		history.exercise_ID = Int64.random(in: 1...6)
+		history.best_set = Int16.random(in: 30...90)
+		let date1 = Date.parse("2019-02-01")
+		let date2 = Date.parse("2019-04-01")
+		let new_date =  Date.randomBetween(start: date1, end: date2)
+		history.date = new_date
+		do {
+			try manageObjectContext.save()
+		} catch {
+			print(error)
 		}
 	}
 }

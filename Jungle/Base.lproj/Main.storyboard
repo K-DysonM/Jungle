@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SSB-KV-YLC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eox-34-nJs">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -8,10 +8,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Exercises-->
         <scene sceneID="lty-y8-Zqe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SSB-KV-YLC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Exercises" image="figure.walk.circle" catalog="system" id="hI2-8n-7AB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MxB-Yu-1gf">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -24,7 +25,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yKc-8t-zgd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5.7971014492753632" y="131.91964285714286"/>
+            <point key="canvasLocation" x="915.94202898550736" y="131.91964285714286"/>
         </scene>
         <!--Exercise Table View Controller-->
         <scene sceneID="e5i-eW-M9H">
@@ -40,10 +41,66 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zHg-d4-9xH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="938" y="132"/>
+            <point key="canvasLocation" x="1847.826086956522" y="131.91964285714286"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="FaZ-fg-i32">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="eox-34-nJs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="f7D-Vb-zSP">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Dvy-na-xX6" kind="relationship" relationship="viewControllers" id="A9j-22-lLc"/>
+                        <segue destination="SSB-KV-YLC" kind="relationship" relationship="viewControllers" id="XEt-gB-8Wa"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UV9-ga-cLI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-16" y="427"/>
+        </scene>
+        <!--Start Workout View Controller-->
+        <scene sceneID="uKk-Kj-0sh">
+            <objects>
+                <viewController id="2iA-Av-sXF" customClass="StartWorkoutViewController" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dAs-iW-7T6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Lyt-2W-Dc2"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BFw-XK-d6A"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hdx-1B-4OX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1848" y="819"/>
+        </scene>
+        <!--Start Workout-->
+        <scene sceneID="uq6-CA-2Nl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dvy-na-xX6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Start Workout" image="play.circle" catalog="system" id="feG-RH-Ryi"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LRi-X8-fpk">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2iA-Av-sXF" kind="relationship" relationship="rootViewController" id="xEs-RU-zwL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1TO-3a-hch" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="938" y="818"/>
         </scene>
     </scenes>
     <resources>
+        <image name="figure.walk.circle" catalog="system" width="128" height="121"/>
+        <image name="play.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
