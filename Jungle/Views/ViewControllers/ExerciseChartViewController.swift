@@ -18,6 +18,7 @@ class ExerciseChartViewController: UIViewController {
 	var lineChartView: LineChartView = {
 		var linechart = LineChartView()
 		linechart.backgroundColor = .clear
+		linechart.noDataText = "You haven't done this exercise yet 😕"
 		
 		linechart.rightAxis.enabled = false
 		linechart.leftAxis.drawGridLinesEnabled = false
@@ -68,7 +69,6 @@ class ExerciseChartViewController: UIViewController {
 			lineChartTitle.topAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.topAnchor),
 			lineChartTitle.leadingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
 			lineChartTitle.trailingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-			lineChartTitle.heightAnchor.constraint(equalToConstant: 40),
 			lineChartView.topAnchor.constraint(equalTo: lineChartTitle.bottomAnchor, constant: 2),
 			lineChartView.leadingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
 			lineChartView.trailingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.trailingAnchor, constant: -8),

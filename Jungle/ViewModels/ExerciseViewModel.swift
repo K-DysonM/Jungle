@@ -25,21 +25,32 @@ class ExerciseViewModel {
 		self.lastSet = exercise.history
 		self.image = exercise.image
 		
-		var temp: [HistoryViewModel] = []
-		for _ in 1...5 {
-			temp.append(HistoryViewModel())
+		history = []
+		loadHistory()
+	}
+	// Fetches history for current exercise from core data
+	func loadHistory() {
+		let coreDataUtil = CoreDataUtil()
+		coreDataUtil.fetchHistoryForExerciseID(exercise.id) { result, error in
+			guard error == nil else { return }
+			guard let result = result else { return }
+			
+			let models = result.compactMap {
+				HistoryViewModel(history: $0)
+			}
+			self.history = models
 		}
-		temp.sort {
-			$0.history.time.timeIntervalSince1970 > $1.history.time.timeIntervalSince1970
-		}
-		self.history = temp
 	}
 	
+	
 	func getChartData() -> [ChartDataEntry] {
-		var chartData: [ChartDataEntry] = []
-		history.forEach { history in
-			let temp = ChartDataEntry(x: history.history.time.timeIntervalSince1970, y: Double(history.history.best))
-			chartData.append(temp)
+		var chartData: [ChartDataEntry] = history.compactMap { history in
+			if let timeInterval = history.history.date?.timeIntervalSince1970 {
+				let temp = ChartDataEntry(x: timeInterval, y: Double(history.history.best_set))
+				return temp
+			} else {
+				return nil
+			}
 		}
 		chartData.sort {
 			$0.x < $1.x

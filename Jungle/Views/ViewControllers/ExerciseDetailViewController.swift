@@ -115,8 +115,9 @@ class ExerciseDetailViewController: UIViewController {
 	
 	func setData() {
 		chartVC.lineChartView.xAxis.valueFormatter = self
+		guard !exerciseViewModel.getChartData().isEmpty else { return }
 		let set1 = LineChartDataSet(entries: exerciseViewModel.getChartData())
-		set1.mode = .linear
+		set1.mode = .cubicBezier
 		set1.colors = [UIColor.systemGreen]
 		set1.circleColors = [UIColor.systemGreen]
 		set1.circleRadius = 4.0

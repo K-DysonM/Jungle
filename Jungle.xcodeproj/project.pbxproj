@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B23E0F5B27FD41730060E7CF /* CoreDataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23E0F5A27FD41730060E7CF /* CoreDataUtil.swift */; };
 		B2D67F1C27F75FF700ECC969 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F1B27F75FF700ECC969 /* AppDelegate.swift */; };
 		B2D67F1E27F75FF700ECC969 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F1D27F75FF700ECC969 /* SceneDelegate.swift */; };
 		B2D67F2027F75FF700ECC969 /* ExerciseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F1F27F75FF700ECC969 /* ExerciseTableViewController.swift */; };
@@ -26,9 +27,11 @@
 		B2D67F5B27FB2AA200ECC969 /* ChartTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F5A27FB2AA200ECC969 /* ChartTitleView.swift */; };
 		B2D67F5D27FB305B00ECC969 /* ExerciseHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F5C27FB305B00ECC969 /* ExerciseHistoryViewController.swift */; };
 		B2D67F5F27FB370C00ECC969 /* ExerciseChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D67F5E27FB370C00ECC969 /* ExerciseChartViewController.swift */; };
+		B2E33E1527FC9DC1009FFB04 /* Jungle.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B2E33E1327FC9DC1009FFB04 /* Jungle.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B23E0F5A27FD41730060E7CF /* CoreDataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataUtil.swift; sourceTree = "<group>"; };
 		B2D67F1827F75FF700ECC969 /* Jungle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jungle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D67F1B27F75FF700ECC969 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2D67F1D27F75FF700ECC969 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 		B2D67F5A27FB2AA200ECC969 /* ChartTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTitleView.swift; sourceTree = "<group>"; };
 		B2D67F5C27FB305B00ECC969 /* ExerciseHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseHistoryViewController.swift; sourceTree = "<group>"; };
 		B2D67F5E27FB370C00ECC969 /* ExerciseChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseChartViewController.swift; sourceTree = "<group>"; };
+		B2E33E1427FC9DC1009FFB04 /* Jungle.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Jungle.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +95,10 @@
 				B2D67F2127F75FF700ECC969 /* Main.storyboard */,
 				B2D67F2727F75FF900ECC969 /* Assets.xcassets */,
 				B2D67F2927F75FF900ECC969 /* LaunchScreen.storyboard */,
+				B2E33E1327FC9DC1009FFB04 /* Jungle.xcdatamodeld */,
 				B2D67F2C27F75FF900ECC969 /* Info.plist */,
 				B2D67F3B27F7765C00ECC969 /* Exercises.json */,
+				B23E0F5A27FD41730060E7CF /* CoreDataUtil.swift */,
 			);
 			path = Jungle;
 			sourceTree = "<group>";
@@ -241,9 +247,11 @@
 				B2D67F5527FA723A00ECC969 /* HistoryViewModel.swift in Sources */,
 				B2D67F2027F75FF700ECC969 /* ExerciseTableViewController.swift in Sources */,
 				B2D67F1C27F75FF700ECC969 /* AppDelegate.swift in Sources */,
+				B2E33E1527FC9DC1009FFB04 /* Jungle.xcdatamodeld in Sources */,
 				B2D67F3A27F766DA00ECC969 /* Exercise.swift in Sources */,
 				B2D67F5D27FB305B00ECC969 /* ExerciseHistoryViewController.swift in Sources */,
 				B2D67F1E27F75FF700ECC969 /* SceneDelegate.swift in Sources */,
+				B23E0F5B27FD41730060E7CF /* CoreDataUtil.swift in Sources */,
 				B2D67F5F27FB370C00ECC969 /* ExerciseChartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,6 +491,19 @@
 			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		B2E33E1327FC9DC1009FFB04 /* Jungle.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B2E33E1427FC9DC1009FFB04 /* Jungle.xcdatamodel */,
+			);
+			currentVersion = B2E33E1427FC9DC1009FFB04 /* Jungle.xcdatamodel */;
+			path = Jungle.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B2D67F1027F75FF700ECC969 /* Project object */;
 }

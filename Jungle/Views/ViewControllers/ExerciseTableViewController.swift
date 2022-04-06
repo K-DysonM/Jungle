@@ -7,9 +7,12 @@
 
 import UIKit
 import Combine
+import CoreData
 
 class ExerciseTableViewController: UIViewController {
 
+	var manageObjectContext: NSManagedObjectContext!
+	
 	let exercisesViewModel = ExercisesViewModel()
 	var subscriptions = Set<AnyCancellable>()
 	
@@ -46,6 +49,8 @@ class ExerciseTableViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
+		manageObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+		
 		tableView.dataSource = self
 		tableView.delegate = self
 		navigationController?.navigationBar.prefersLargeTitles = true
@@ -61,6 +66,25 @@ class ExerciseTableViewController: UIViewController {
 		searchController.searchResultsUpdater = self
 		navigationItem.searchController = searchController
 		navigationItem.hidesSearchBarWhenScrolling = false
+		
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHistory))
+	}
+	
+	@objc func addHistory() {
+		let history = HistoryEntity(context: manageObjectContext)
+		
+		history.exercise_ID = Int64.random(in: 1...6)
+		history.best_set = Int16.random(in: 30...90)
+		let date1 = Date.parse("2019-02-01")
+		let date2 = Date.parse("2019-04-01")
+		let new_date =  Date.randomBetween(start: date1, end: date2)
+		history.date = new_date
+		do {
+			try manageObjectContext.save()
+		} catch {
+			print(error)
+		}
+		
 	}
 	
 }

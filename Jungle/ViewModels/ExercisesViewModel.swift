@@ -38,7 +38,6 @@ class ExercisesViewModel {
 			guard let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) else { return }
 			do {
 				let fileContent = try decorder.decode([Exercise].self, from: data)
-				
 				fileContent.forEach { exercise in
 					let exerciseViewModel = ExerciseViewModel(exercise: exercise)
 					if let firstChar = exercise.name.first {

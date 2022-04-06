@@ -8,11 +8,11 @@
 import Foundation
 
 struct Exercise: Codable {
+	var id: Int
 	var name: String
 	var body_part: String
 	var history: String
 	var image: String
-	var history_set: [History]? = []
 }
 
 struct History: Codable {
