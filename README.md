@@ -2,6 +2,11 @@
 A workout app that helps you track your workouts
 
 
+Iteration 0.13 - "Start Workout" tableview + beginning of coredata 
+<p float="left">
+  <img alt="FirstScreen" src="https://user-images.githubusercontent.com/43551312/162034833-bc3fdd53-a11a-4de1-9e20-550a278d8d49.gif" width="50%">
+</p>
+
 Iteration 0.121 - Refactoring and UI improvements on charts
 <p float="left">
   <img alt="FirstScreen" src="https://user-images.githubusercontent.com/43551312/161784099-0920b3de-87a0-4ae1-9857-9f7ee3b92c2d.PNG" width="50%">
