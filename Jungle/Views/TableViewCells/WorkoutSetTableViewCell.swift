@@ -9,15 +9,15 @@ import UIKit
 import Combine
 
 class WorkoutSetTableViewCell: UITableViewCell {
-
-	var subscriptions =  Set<AnyCancellable>()
+	var setViewModel: SetViewModel?
+	var subscriptions =  [AnyCancellable]()
 	
-	// MARK: - UIView elements
+	// MARK: - UI elements
 	
 	var setLabel: UILabel = {
 		var label = UILabel()
 		label.text = "1"
-		label.backgroundColor = .secondarySystemGroupedBackground
+		label.backgroundColor = .clear
 		label.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
 		label.textAlignment = .center
 		return label
@@ -26,7 +26,7 @@ class WorkoutSetTableViewCell: UITableViewCell {
 	var previousLabel: UILabel = {
 		var label = UILabel()
 		label.text = "85lb x 10"
-		label.backgroundColor = .secondarySystemGroupedBackground
+		label.backgroundColor = .clear
 		label.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
 		label.textAlignment = .center
 		return label
@@ -37,7 +37,7 @@ class WorkoutSetTableViewCell: UITableViewCell {
 		textField.placeholder = "10"
 		textField.textAlignment = .center
 		textField.keyboardType = .numberPad
-		textField.backgroundColor = .secondarySystemGroupedBackground
+		textField.backgroundColor = .clear
 		textField.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
 		textField.addDoneCancelToolbar()
 		return textField
@@ -48,7 +48,7 @@ class WorkoutSetTableViewCell: UITableViewCell {
 		textField.placeholder = "12"
 		textField.textAlignment = .center
 		textField.keyboardType = .numberPad
-		textField.backgroundColor = .secondarySystemGroupedBackground
+		textField.backgroundColor = .clear
 		textField.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
 		textField.addDoneCancelToolbar()
 		return textField
@@ -82,8 +82,6 @@ class WorkoutSetTableViewCell: UITableViewCell {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		print(#function)
-			// Initialization code
 		layoutUI()
 	}
 	
@@ -96,20 +94,16 @@ class WorkoutSetTableViewCell: UITableViewCell {
 		layoutUI()
 	}
 	
-	override func setSelected(_ selected: Bool, animated: Bool) {
-		super.setSelected(selected, animated: animated)
-			// Configure the view for the selected state
-	}
-	
 	// MARK: - Layout UI
-	
 	@objc func tester() {
-		circleView.toggle()
+		let generator = UIImpactFeedbackGenerator(style: .light)
+		generator.impactOccurred()
+		setViewModel?.toggle()
 	}
 	
 	func layoutUI() {
-		print(#function)
 		//circleView.backgroundColor = .clear
+		circleView.circleLabel.removeTarget(nil, action: nil, for: .allEvents)
 		circleView.circleLabel.addTarget(self, action: #selector(tester), for: .touchUpInside)
 		
 		mainStackView.addArrangedSubview(leftStackView)
@@ -137,9 +131,23 @@ class WorkoutSetTableViewCell: UITableViewCell {
 		
 	}
 	// MARK: - Configure UI
-	
-	func configure() {
-		// #warning unimplemented
+	//GOOD TALKING POINT ISSUE WITH SUBSCRIPTIONS
+	func configure(setViewModel: SetViewModel) {
+		subscriptions.removeAll()
+		self.setViewModel = setViewModel
+		setViewModel.$numberOrder.sink { order in
+			self.setLabel.text = String(order)
+		}.store(in: &subscriptions)
+		
+		setViewModel.$isDone.sink { isDone in
+			if isDone {
+				self.backgroundColor = .green.withAlphaComponent(0.3)
+				self.circleView.turnOn()
+			} else {
+				self.backgroundColor = .systemBackground
+				self.circleView.turnOff()
+			}
+		}.store(in: &subscriptions)
 	}
 
 }

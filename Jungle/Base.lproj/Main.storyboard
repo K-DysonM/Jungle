@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eox-34-nJs">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -27,12 +26,12 @@
             </objects>
             <point key="canvasLocation" x="915.94202898550736" y="131.91964285714286"/>
         </scene>
-        <!--Exercise Table View Controller-->
+        <!--Exercise TableVC-->
         <scene sceneID="e5i-eW-M9H">
             <objects>
-                <viewController id="HJx-Q0-aa6" customClass="ExerciseTableViewController" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HJx-Q0-aa6" customClass="ExerciseTableVC" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2bZ-H7-DuI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="T2b-bt-bzX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -62,12 +61,12 @@
             </objects>
             <point key="canvasLocation" x="-16" y="427"/>
         </scene>
-        <!--Start Workout View Controller-->
+        <!--Start WorkoutVC-->
         <scene sceneID="uKk-Kj-0sh">
             <objects>
-                <viewController id="2iA-Av-sXF" customClass="StartWorkoutViewController" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2iA-Av-sXF" customClass="StartWorkoutVC" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dAs-iW-7T6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Lyt-2W-Dc2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

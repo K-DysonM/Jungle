@@ -17,6 +17,7 @@ class WorkoutTableHeaderFooterView: UITableViewHeaderFooterView {
 		configuration.attributedTitle = AttributedString("Add Set", attributes: container)
 		
 		var button = UIButton(configuration: configuration)
+		button.isUserInteractionEnabled = false
 		return button
 	}()
 	
@@ -30,7 +31,6 @@ class WorkoutTableHeaderFooterView: UITableViewHeaderFooterView {
 	}
 	
 	func layoutUI() {
-		print(#function)
 		
 		self.addSubview(addSetButton)
 		addSetButton.translatesAutoresizingMaskIntoConstraints = false

@@ -8,7 +8,7 @@
 import UIKit
 import Charts
 
-class ExerciseDetailViewController: UIViewController {
+class ExerciseDetailVC: UIViewController {
 	var exerciseViewModel: ExerciseViewModel
 	
 	init(viewModel: ExerciseViewModel) {
@@ -31,14 +31,14 @@ class ExerciseDetailViewController: UIViewController {
 		var segmentControl = UISegmentedControl(items: ["History","Charts"])
 		return segmentControl
 	}()
-	var historyVC: ExerciseHistoryViewController = {
-		let historyVC = ExerciseHistoryViewController()
+	var historyVC: ExerciseHistoryVC = {
+		let historyVC = ExerciseHistoryVC()
 		historyVC.view.backgroundColor = .clear
 		return historyVC
 	}()
 	
-	var chartVC: ExerciseChartViewController = {
-		let chartVC = ExerciseChartViewController()
+	var chartVC: ExerciseChartVC = {
+		let chartVC = ExerciseChartVC()
 		chartVC.view.backgroundColor = .clear
 		return chartVC
 	}()
@@ -142,7 +142,7 @@ class ExerciseDetailViewController: UIViewController {
 }
 
 // MARK: - TableView Datasource
-extension ExerciseDetailViewController: UITableViewDataSource {
+extension ExerciseDetailVC: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		150
 	}
@@ -158,13 +158,13 @@ extension ExerciseDetailViewController: UITableViewDataSource {
 }
 
 // MARK: - ChartView Delegate
-extension ExerciseDetailViewController: ChartViewDelegate {
+extension ExerciseDetailVC: ChartViewDelegate {
 	func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
 		print(entry)
 	}
 }
 // MARK: - AxisValueFormatter
-extension ExerciseDetailViewController: IAxisValueFormatter {
+extension ExerciseDetailVC: IAxisValueFormatter {
 	func stringForValue(_ value: Double, axis: AxisBase?) -> String {
 		let date = Date(timeIntervalSince1970: value)
 		let formatter3 = DateFormatter()

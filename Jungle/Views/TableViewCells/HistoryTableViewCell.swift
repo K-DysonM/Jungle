@@ -67,7 +67,6 @@ class HistoryTableViewCell: UITableViewCell {
 	
 	// MARK: - Layout UI
 	func layoutUI() {
-		print(#function)
 		[title, subtitle, setTitle, setSubtitle].forEach {
 			stackView.addArrangedSubview($0)
 		}

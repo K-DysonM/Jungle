@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExerciseHistoryViewController: UIViewController {
+class ExerciseHistoryVC: UIViewController {
 
 	var historyTableView: UITableView = {
 		var tableview = UITableView()

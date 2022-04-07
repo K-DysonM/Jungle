@@ -9,10 +9,10 @@ import UIKit
 import Combine
 import CoreData
 
-class ExerciseTableViewController: UIViewController {
+class ExerciseTableVC: UIViewController {
 	
 	let exercisesViewModel = ExercisesViewModel()
-	var subscriptions = Set<AnyCancellable>()
+	var subscriptions = [AnyCancellable]()
 	
 	// MARK: - UI Elements
 	var tableView: UITableView = {
@@ -74,7 +74,7 @@ class ExerciseTableViewController: UIViewController {
 	
 }
 // MARK: - TableView Datasource
-extension ExerciseTableViewController: UITableViewDataSource {
+extension ExerciseTableVC: UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		exercisesViewModel.exercisesOrder.count
 	}
@@ -103,20 +103,20 @@ extension ExerciseTableViewController: UITableViewDataSource {
 	}
 }
 // MARK: - TableView Delegate
-extension ExerciseTableViewController: UITableViewDelegate {
+extension ExerciseTableVC: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		print("Selected \(indexPath.row)")
 		let key = exercisesViewModel.exercisesOrder[indexPath.section]
 		if let exerciseViewModel = exercisesViewModel.exercisesDict[key]?[indexPath.row] {
-			let exerciseDetailVC = ExerciseDetailViewController(viewModel: exerciseViewModel)
+			let exerciseDetailVC = ExerciseDetailVC(viewModel: exerciseViewModel)
 			exerciseDetailVC.modalTransitionStyle = .coverVertical
 			present(exerciseDetailVC, animated: true)
 		}
 	}
 }
 
-extension ExerciseTableViewController: UISearchResultsUpdating {
+extension ExerciseTableVC: UISearchResultsUpdating {
 	func updateSearchResults(for searchController: UISearchController) {
 		let searchText = searchController.searchBar.text!
 		if searchText.isEmpty {

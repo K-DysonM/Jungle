@@ -18,7 +18,6 @@ class CircleView: UIView {
 		button.layer.masksToBounds = true
 		button.layer.borderColor = UIColor.gray.cgColor
 		button.layer.borderWidth = 1.5
-		button.titleLabel?.text = "LL"
 		return button
 	}()
 	
@@ -33,7 +32,6 @@ class CircleView: UIView {
     
 	// MARK: - Layout UI
 	func layoutUI() {
-		print(#function)
 		self.addSubview(circleLabel)
 		circleLabel.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate(
@@ -49,6 +47,14 @@ class CircleView: UIView {
 	func toggle() {
 		isOn.toggle()
 		circleLabel.backgroundColor = isOn == true ? .green : .systemBackground
+	}
+	
+	func turnOn() {
+		circleLabel.backgroundColor = .green
+	}
+	
+	func turnOff() {
+		circleLabel.backgroundColor = .systemBackground
 	}
 
 }

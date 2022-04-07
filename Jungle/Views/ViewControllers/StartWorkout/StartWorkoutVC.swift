@@ -7,9 +7,8 @@
 
 import UIKit
 
-class StartWorkoutViewController: UIViewController {
+class StartWorkoutVC: UIViewController {
 
-	
 	var startEmptyWorkoutButton: UIButton = {
 		var configuration = UIButton.Configuration.filled()
 		configuration.title = "Start an Empty Workout"
@@ -18,7 +17,6 @@ class StartWorkoutViewController: UIViewController {
 		container.font = UIFont.boldSystemFont(ofSize: 16)
 		configuration.attributedTitle = AttributedString("Start an Empty Workout", attributes: container)
 
-		
 		var button = UIButton(configuration: configuration)
 		return button
 	}()
@@ -26,8 +24,6 @@ class StartWorkoutViewController: UIViewController {
 	override func loadView() {
 		view = UIView()
 		view.backgroundColor = .systemBackground
-		
-		
 		view.addSubview(startEmptyWorkoutButton)
 		startEmptyWorkoutButton.translatesAutoresizingMaskIntoConstraints = false
 		
@@ -48,8 +44,7 @@ class StartWorkoutViewController: UIViewController {
     }
 	
 	@objc func startEmptyWorkout() {
-		print(#function)
-		let destVC = WorkoutViewController()
+		let destVC = WorkoutVC()
 		navigationController?.pushViewController(destVC, animated: true)
 	}
 

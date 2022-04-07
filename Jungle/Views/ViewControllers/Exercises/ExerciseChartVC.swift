@@ -8,7 +8,7 @@
 import UIKit
 import Charts
 
-class ExerciseChartViewController: UIViewController {
+class ExerciseChartVC: UIViewController {
 
 	var lineChartTitle: ChartTitleView = {
 		var title = ChartTitleView()

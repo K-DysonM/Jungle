@@ -10,7 +10,7 @@ import Combine
 
 class ExerciseTableViewCell: UITableViewCell {
 
-	var subscriptions =  Set<AnyCancellable>()
+	var subscriptions =  [AnyCancellable]()
 	
 	// MARK: - UIView elements
 	var image: UIImageView = {
@@ -59,7 +59,6 @@ class ExerciseTableViewCell: UITableViewCell {
 	
     override func awakeFromNib() {
         super.awakeFromNib()
-		print(#function)
         // Initialization code
 		layoutUI()
     }
@@ -82,7 +81,6 @@ class ExerciseTableViewCell: UITableViewCell {
 	// MARK: - Layout UI
 	
 	func layoutUI() {
-		print(#function)
 		infoStackView.addArrangedSubview(subtitle)
 		infoStackView.addArrangedSubview(detail)
 		

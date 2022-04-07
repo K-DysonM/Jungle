@@ -8,49 +8,36 @@
 import UIKit
 import Combine
 
-class WorkoutTableViewCell: UITableViewCell {
-
-	var subscriptions =  Set<AnyCancellable>()
+class WorkoutSetHeaderTableViewCell: UITableViewCell {
 	
 	// MARK: - UIView elements
-	
 	var setLabel: UILabel = {
-		var label = UILabel()
-		label.text = "Set"
-		label.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
-		label.textAlignment = .center
+		var label = HeaderLabel()
+		label.text = WorkoutDetail.Set.rawValue
 		return label
 	}()
 	
 	var previousLabel: UILabel = {
-		var label = UILabel()
-		label.text = "Previous"
-		label.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
-		label.textAlignment = .center
+		var label = HeaderLabel()
+		label.text = WorkoutDetail.Previous.rawValue
 		return label
 	}()
 	
 	var poundsLabel: UILabel = {
-		var label = UILabel()
-		label.text = "lbs"
-		label.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
-		label.textAlignment = .center
+		var label = HeaderLabel()
+		label.text = WorkoutDetail.Pounds.rawValue
 		return label
 	}()
 	
 	var repsLabel: UILabel = {
-		var label = UILabel()
-		label.text = "Reps"
-		label.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
-		label.textAlignment = .center
+		var label = HeaderLabel()
+		label.text = WorkoutDetail.Reps.rawValue
 		return label
 	}()
 	
 	var checkLabel: UILabel = {
-		var label = UILabel()
-		label.text = "✅"
-		label.font = UIFont.systemFont(ofSize: 16.00, weight: .bold)
-		label.textAlignment = .center
+		var label = HeaderLabel()
+		label.text = WorkoutDetail.Done.rawValue
 		return label
 	}()
 	
@@ -77,11 +64,8 @@ class WorkoutTableViewCell: UITableViewCell {
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		print(#function)
-			// Initialization code
 		layoutUI()
 	}
-	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		layoutUI()
@@ -90,16 +74,9 @@ class WorkoutTableViewCell: UITableViewCell {
 		super.init(coder: coder)
 		layoutUI()
 	}
-	
-	override func setSelected(_ selected: Bool, animated: Bool) {
-		super.setSelected(selected, animated: animated)
-			// Configure the view for the selected state
-	}
-	
-		// MARK: - Layout UI
+	// MARK: - Layout UI
 	
 	func layoutUI() {
-		print(#function)
 		mainStackView.addArrangedSubview(leftStackView)
 		mainStackView.addArrangedSubview(rightStackView)
 		
@@ -109,7 +86,6 @@ class WorkoutTableViewCell: UITableViewCell {
 		rightStackView.addArrangedSubview(poundsLabel)
 		rightStackView.addArrangedSubview(repsLabel)
 		rightStackView.addArrangedSubview(checkLabel)
-		
 		
 		self.addSubview(mainStackView)
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -122,11 +98,5 @@ class WorkoutTableViewCell: UITableViewCell {
 				mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
 				previousLabel.widthAnchor.constraint(equalTo: leftStackView.widthAnchor, multiplier: 0.75)
 			])
-		
-	}
-	// MARK: - Configure UI
-	
-	func configure() {
-		// #warning unimplemented
 	}
 }

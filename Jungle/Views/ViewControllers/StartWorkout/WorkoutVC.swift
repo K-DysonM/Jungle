@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WorkoutViewController: UIViewController {
+class WorkoutVC: UIViewController {
 
 	var addExercisesButton: UIButton = {
 		var configuration = UIButton.Configuration.tinted()
@@ -15,7 +15,6 @@ class WorkoutViewController: UIViewController {
 		var container = AttributeContainer()
 		container.font = UIFont.boldSystemFont(ofSize: 14)
 		configuration.attributedTitle = AttributedString("Add Exercises", attributes: container)
-		
 		
 		var button = UIButton(configuration: configuration)
 		return button
@@ -29,57 +28,43 @@ class WorkoutViewController: UIViewController {
 		container.font = UIFont.boldSystemFont(ofSize: 14)
 		configuration.attributedTitle = AttributedString("Cancel Workout", attributes: container)
 		
-		
 		var button = UIButton(configuration: configuration)
 		return button
 	}()
-	// Combine above into a uiview
 	
-	
-	
-	// Going to have to properly create a tableview with sections and rows
-	var tableVC: WorkoutTableViewController = {
-		let tableVC = WorkoutTableViewController(style: .insetGrouped)
+	var tableVC: WorkoutTableVC = {
+		let tableVC = WorkoutTableVC(style: .insetGrouped)
 		tableVC.tableView.showsVerticalScrollIndicator = false
 		tableVC.view.backgroundColor = .clear
 		return tableVC
 	}()
 	
-	override func loadView() {
-		view = UIView()
-		view.backgroundColor = .systemBackground
-	}
-	func combineButtons() -> UIView{
-		let buttonView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 132))
-		buttonView.addSubview(addExercisesButton)
-		buttonView.addSubview(cancelWorkoutButton)
+	// Combines two buttons into view to represent any major actions a user can perform
+	// i.e "Add Exercises", and "Cancel Workout"
+	func createWorkoutOptionsView() -> UIView{
+		let optionsView = UIStackView(frame: CGRect(x: 0, y: 0, width: 200, height: 128))
+		optionsView.addArrangedSubview(addExercisesButton)
+		optionsView.addArrangedSubview(cancelWorkoutButton)
 		
-		addExercisesButton.translatesAutoresizingMaskIntoConstraints = false
-		cancelWorkoutButton.translatesAutoresizingMaskIntoConstraints = false
-		
-		NSLayoutConstraint.activate([
-			addExercisesButton.topAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.topAnchor, constant: 16),
-			addExercisesButton.leadingAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-			addExercisesButton.trailingAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-			addExercisesButton.heightAnchor.constraint(equalToConstant: 50),
-			cancelWorkoutButton.topAnchor.constraint(equalTo: addExercisesButton.safeAreaLayoutGuide.bottomAnchor, constant: 16),
-			cancelWorkoutButton.leadingAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-			cancelWorkoutButton.trailingAnchor.constraint(equalTo: buttonView.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-			cancelWorkoutButton.heightAnchor.constraint(equalToConstant: 50),
-		])
-		return buttonView
+		optionsView.axis = .vertical
+		optionsView.distribution = .fillEqually
+		optionsView.spacing = 8
+		optionsView.isLayoutMarginsRelativeArrangement = true
+		optionsView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+
+		return optionsView
 	}
 	
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		view.backgroundColor = .systemBackground
 
 		addSegmentVC(tableVC)
 		title = "Workout"
 		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(finishWorkout))
 		navigationItem.hidesBackButton = true
-		tableVC.tableView.tableFooterView = combineButtons()
-        // Do any additional setup after loading the view.
+		tableVC.tableView.tableFooterView = createWorkoutOptionsView()
     }
 	@objc func finishWorkout() {
 		navigationController?.popViewController(animated: true)

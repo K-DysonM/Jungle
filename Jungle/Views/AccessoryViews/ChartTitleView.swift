@@ -46,7 +46,6 @@ class ChartTitleView: UIView {
 	
 	// MARK: - Layout UI
 	func layoutUI() {
-		print(#function)
 		[title, lineView].forEach {
 			stackView.addArrangedSubview($0)
 		}
