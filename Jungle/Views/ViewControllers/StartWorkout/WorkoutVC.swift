@@ -7,8 +7,13 @@
 
 import UIKit
 
-class WorkoutVC: UIViewController {
-
+#warning("I want to move the main view model into the parent instead of the child")
+class WorkoutVC: UIViewController{
+	var exerciseTableVC: UIViewController?
+	let coreDataUtil = CoreDataUtil()
+	
+	
+	// MARK: - UI Elements
 	var addExercisesButton: UIButton = {
 		var configuration = UIButton.Configuration.tinted()
 		configuration.titleAlignment = .center
@@ -50,7 +55,7 @@ class WorkoutVC: UIViewController {
 		optionsView.distribution = .fillEqually
 		optionsView.spacing = 8
 		optionsView.isLayoutMarginsRelativeArrangement = true
-		optionsView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+		//optionsView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
 
 		return optionsView
 	}
@@ -60,31 +65,76 @@ class WorkoutVC: UIViewController {
         super.viewDidLoad()
 		view.backgroundColor = .systemBackground
 
-		addSegmentVC(tableVC)
-		title = "Workout"
-		navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(finishWorkout))
-		navigationItem.hidesBackButton = true
-		tableVC.tableView.tableFooterView = createWorkoutOptionsView()
+		addContainerVC(tableVC)
+		navigationBarSetup()
+		workoutOptionsSetup()
     }
-	@objc func finishWorkout() {
-		navigationController?.popViewController(animated: true)
-	}
-	func addSegmentVC (_ vc: UIViewController) {
+	/* Primary ViewDidLoad methods */
+	func addContainerVC (_ vc: UIViewController) {
 		addChild(vc)
-		self.view.addSubview(vc.view)
-		constrainViewEqual(holderView: self.view, view: vc.view)
+		vc.view.pin(to: view)
 		vc.didMove(toParent: self)
 	}
-	
-	func constrainViewEqual(holderView: UIView, view: UIView) {
-		view.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			view.topAnchor.constraint(equalTo: holderView.safeAreaLayoutGuide.topAnchor),
-			view.leadingAnchor.constraint(equalTo: holderView.safeAreaLayoutGuide.leadingAnchor),
-			view.trailingAnchor.constraint(equalTo: holderView.safeAreaLayoutGuide.trailingAnchor),
-			view.bottomAnchor.constraint(equalTo: holderView.safeAreaLayoutGuide.bottomAnchor)
-		])
+	func navigationBarSetup() {
+		title = "Workout"
+		let heartButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveAsTemplate))
+		let finishButton = UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(finishWorkout))
+		navigationItem.rightBarButtonItems = [heartButton, finishButton]
+		navigationItem.hidesBackButton = true
 	}
-
-
+	func workoutOptionsSetup(){
+		tableVC.tableView.tableFooterView = createWorkoutOptionsView()
+		addExercisesButton.addTarget(self, action: #selector(addExercise), for: .touchUpInside)
+		cancelWorkoutButton.addTarget(self, action: #selector(cancelWorkout), for: .touchUpInside)
+	}
+	
+	/* Secondary ViewDidLoad methods */
+	@objc func addExercise(){
+		let navController = UINavigationController(rootViewController:  ExerciseTableVC(withDelegate: self))
+		exerciseTableVC = navController
+		navController.modalPresentationStyle = .popover
+		present(navController, animated: true)
+	}
+	@objc func cancelWorkout() {
+		navigationController?.popViewController(animated: true)
+	}
+	@objc func finishWorkout() {
+		let finishedSets = tableVC.workoutViewModel.workoutExercises.compactMap { (workoutExercise: WorkoutExercise) -> WorkoutExercise? in
+			let newSets = workoutExercise.sets.filter { $0.isDone == true }
+			if newSets.isEmpty {
+				return nil
+			}
+			let newWorkout = WorkoutExercise(exercise: workoutExercise.exercise, sets: newSets)
+			return newWorkout
+		}
+		coreDataUtil.postWorkout(for: finishedSets)
+		navigationController?.popViewController(animated: true)
+	}
+	@objc func saveAsTemplate() {
+		let ac = UIAlertController(title: "Save Workout",message: "Do you want to save this workout as a template for future use?", preferredStyle: .alert)
+		let yesAlert = UIAlertAction(title: "Save", style: .default) { action in
+			self.helperSave()
+		}
+		let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+		ac.addAction(yesAlert)
+		ac.addAction(cancel)
+		
+		present(ac, animated: true)
+	}
+	private func helperSave() {
+		coreDataUtil.postTemplate(for: tableVC.workoutViewModel.workoutExercises)
+	}
+}
+extension WorkoutVC: ExerciseTableViewDelegate {
+	func heightForRowAt() -> CGFloat {
+		75
+	}
+	func selectedExercise(excerise: ExerciseVM) {
+		print(excerise.name)
+		tableVC.workoutViewModel.addExerciseToWorkout(excerise)
+		exerciseTableVC?.dismiss(animated: true)
+	}
+	func selectedCell(section: Int, row: Int) {
+		print(section, row)
+	}
 }

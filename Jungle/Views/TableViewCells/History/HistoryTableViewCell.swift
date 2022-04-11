@@ -71,8 +71,8 @@ class HistoryTableViewCell: UITableViewCell {
 			stackView.addArrangedSubview($0)
 		}
 		backgroundColor = .clear
-		self.addSubview(background)
-		self.addSubview(stackView)
+		contentView.addSubview(background)
+		contentView.addSubview(stackView)
 		stackView.backgroundColor = .systemBackground
 		background.backgroundColor = .systemBackground
 		background.layer.cornerRadius = 10.0
@@ -81,10 +81,10 @@ class HistoryTableViewCell: UITableViewCell {
 		
 		NSLayoutConstraint.activate(
 			[
-				background.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-				background.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-				background.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-				background.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+				background.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+				background.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
+				background.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+				background.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8),
 				stackView.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 8),
 				stackView.topAnchor.constraint(equalTo: background.safeAreaLayoutGuide.topAnchor, constant: 8),
 				stackView.trailingAnchor.constraint(equalTo: background.safeAreaLayoutGuide.trailingAnchor, constant: -8),
@@ -94,7 +94,7 @@ class HistoryTableViewCell: UITableViewCell {
 	}
 	
 	// MARK: - Configure UI
-	func configure(viewModel: HistoryViewModel) {
+	func configure(viewModel: HistoryVM) {
 		subtitle.text = viewModel.time
 		setSubtitle.text = viewModel.bestSet
 	}

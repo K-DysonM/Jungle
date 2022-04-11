@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HistoryViewModel {
+class HistoryVM {
 	var history: HistoryEntity
 	
 	var time: String

@@ -9,11 +9,10 @@ import UIKit
 import Combine
 
 class WorkoutSetTableViewCell: UITableViewCell {
-	var setViewModel: SetViewModel?
+	var setViewModel: SetVM?
 	var subscriptions =  [AnyCancellable]()
 	
 	// MARK: - UI elements
-	
 	var setLabel: UILabel = {
 		var label = UILabel()
 		label.text = "1"
@@ -116,23 +115,23 @@ class WorkoutSetTableViewCell: UITableViewCell {
 		rightStackView.addArrangedSubview(repsTextField)
 		rightStackView.addArrangedSubview(circleView)
 		
-		
-		self.addSubview(mainStackView)
+		contentView.addSubview(mainStackView)
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false
 		
+	
 		NSLayoutConstraint.activate(
 			[
-				mainStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 0),
-				mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-				mainStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0),
-				mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+				mainStackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+				mainStackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
+				mainStackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+				mainStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8),
 				previousLabel.widthAnchor.constraint(equalTo: leftStackView.widthAnchor, multiplier: 0.75),
 			])
 		
 	}
 	// MARK: - Configure UI
 	//GOOD TALKING POINT ISSUE WITH SUBSCRIPTIONS
-	func configure(setViewModel: SetViewModel) {
+	func configure(setViewModel: SetVM) {
 		subscriptions.removeAll()
 		self.setViewModel = setViewModel
 		setViewModel.$numberOrder.sink { order in
@@ -141,13 +140,27 @@ class WorkoutSetTableViewCell: UITableViewCell {
 		
 		setViewModel.$isDone.sink { isDone in
 			if isDone {
-				self.backgroundColor = .green.withAlphaComponent(0.3)
+				self.backgroundColor = .green.withAlphaComponent(0.2)
 				self.circleView.turnOn()
 			} else {
 				self.backgroundColor = .systemBackground
 				self.circleView.turnOff()
 			}
 		}.store(in: &subscriptions)
+		
+		repsTextField.delegate = self
+		poundsTextField.delegate = self
 	}
-
+}
+extension WorkoutSetTableViewCell: UITextFieldDelegate {
+	func textFieldDidEndEditing(_ textField: UITextField) {
+		guard let text = textField.text else { return }
+		if textField == poundsTextField {
+			guard let weight = Double(text) else { return }
+			setViewModel?.updateWeight(for: weight)
+		} else if textField == repsTextField {
+			guard let reps = Int(text) else { return }
+			setViewModel?.updateReps(for: reps)
+		}
+	}
 }

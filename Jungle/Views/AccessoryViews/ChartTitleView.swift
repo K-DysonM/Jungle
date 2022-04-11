@@ -50,19 +50,9 @@ class ChartTitleView: UIView {
 			stackView.addArrangedSubview($0)
 		}
 		backgroundColor = .clear
-		self.addSubview(stackView)
 		stackView.backgroundColor = .systemBackground
-		stackView.translatesAutoresizingMaskIntoConstraints = false
 		
-		
-		NSLayoutConstraint.activate(
-			[
-				stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
-				stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-				stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-				stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
-				lineView.heightAnchor.constraint(equalToConstant: 1.0)
-			])
+		stackView.pin(to: self, withPadding: 8)
 		
 	}
 	

@@ -87,28 +87,28 @@ class ExerciseTableViewCell: UITableViewCell {
 		stackView.addArrangedSubview(title)
 		stackView.addArrangedSubview(infoStackView)
 		
-		self.addSubview(stackView)
-		self.addSubview(image)
+		contentView.addSubview(stackView)
+		contentView.addSubview(image)
 		
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		image.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate(
 			[
-				image.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8),
+				image.heightAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8),
 				image.widthAnchor.constraint(equalTo: image.heightAnchor),
-				image.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-				image.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
+				image.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+				image.centerYAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.centerYAnchor),
 				stackView.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 8),
-				stackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
-				stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-				stackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8)
+				stackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
+				stackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+				stackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8)
 			])
 		
 	}
 	// MARK: - Configure UI
 	
-	func configure(_ exerciseViewModel: ExerciseViewModel) {
+	func configure(_ exerciseViewModel: ExerciseVM) {
 		exerciseViewModel.$name.assign(to: \.text!, on: title).store(in: &subscriptions)
 		exerciseViewModel.$bodyPart.assign(to: \.text!, on: subtitle).store(in: &subscriptions)
 		exerciseViewModel.$lastSet.assign(to: \.text!, on: detail).store(in: &subscriptions)

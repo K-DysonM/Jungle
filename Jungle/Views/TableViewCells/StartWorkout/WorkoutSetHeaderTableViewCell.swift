@@ -87,15 +87,15 @@ class WorkoutSetHeaderTableViewCell: UITableViewCell {
 		rightStackView.addArrangedSubview(repsLabel)
 		rightStackView.addArrangedSubview(checkLabel)
 		
-		self.addSubview(mainStackView)
+		contentView.addSubview(mainStackView)
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate(
 			[
-				mainStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 0),
-				mainStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-				mainStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 0),
-				mainStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+				mainStackView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+				mainStackView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 8),
+				mainStackView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 0),
+				mainStackView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -8),
 				previousLabel.widthAnchor.constraint(equalTo: leftStackView.widthAnchor, multiplier: 0.75)
 			])
 	}

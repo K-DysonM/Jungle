@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="ExerciseEntity" representedClassName="ExerciseEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="exercise_ID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="sets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SetEntity" inverseName="parentExercise" inverseEntity="SetEntity"/>
+        <relationship name="template" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TemplateEntity" inverseName="exercises" inverseEntity="TemplateEntity"/>
+        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkoutEntity" inverseName="exercises" inverseEntity="WorkoutEntity"/>
+    </entity>
     <entity name="HistoryEntity" representedClassName="HistoryEntity" syncable="YES" codeGenerationType="class">
         <attribute name="best_set" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="exercise_ID" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
+    <entity name="SetEntity" representedClassName="SetEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="reps" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="weight" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="parentExercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExerciseEntity" inverseName="sets" inverseEntity="ExerciseEntity"/>
+    </entity>
+    <entity name="TemplateEntity" representedClassName="TemplateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="template_ID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseEntity" inverseName="template" inverseEntity="ExerciseEntity"/>
+    </entity>
+    <entity name="WorkoutEntity" representedClassName="WorkoutEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="workout_ID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExerciseEntity" inverseName="workout" inverseEntity="ExerciseEntity"/>
+    </entity>
     <elements>
-        <element name="HistoryEntity" positionX="-63" positionY="-18" width="128" height="74"/>
+        <element name="HistoryEntity" positionX="156.173095703125" positionY="-53.63592529296875" width="128" height="88"/>
+        <element name="ExerciseEntity" positionX="-232.887939453125" positionY="62.8272705078125" width="128" height="103"/>
+        <element name="WorkoutEntity" positionX="-232.9452514648438" positionY="-129.1280517578125" width="128" height="88"/>
+        <element name="SetEntity" positionX="10.188232421875" positionY="77.32232666015625" width="128" height="103"/>
+        <element name="TemplateEntity" positionX="-50.9700927734375" positionY="-172.4721069335938" width="128" height="73"/>
     </elements>
 </model>

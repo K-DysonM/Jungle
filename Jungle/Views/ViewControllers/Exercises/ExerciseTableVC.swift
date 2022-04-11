@@ -11,8 +11,18 @@ import CoreData
 
 class ExerciseTableVC: UIViewController {
 	
-	let exercisesViewModel = ExercisesViewModel()
+	let exercisesViewModel = ExercisesVM()
 	var subscriptions = [AnyCancellable]()
+	
+	var exerciseTableViewDelegate: ExerciseTableViewDelegate?
+	
+	init(withDelegate delegate: ExerciseTableViewDelegate? = nil) {
+		super.init(nibName: nil, bundle: nil)
+		exerciseTableViewDelegate = delegate
+	}
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+	}
 	
 	// MARK: - UI Elements
 	var tableView: UITableView = {
@@ -32,16 +42,7 @@ class ExerciseTableVC: UIViewController {
 	override func loadView() {
 		view = UIView()
 		view.backgroundColor = .systemBackground
-		view.addSubview(tableView)
-		tableView.translatesAutoresizingMaskIntoConstraints = false
-		
-		NSLayoutConstraint.activate(
-			[
-				tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-				tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-				tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-				tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-			])
+		tableView.pin(to: view)
 	}
 	
 	override func viewDidLoad() {
@@ -81,10 +82,6 @@ extension ExerciseTableVC: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		exercisesViewModel.exercisesOrder[section]
 	}
-	
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		75
-	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		let key = exercisesViewModel.exercisesOrder[section]
 		return exercisesViewModel.exercisesDict[key]?.count ?? 0
@@ -106,13 +103,14 @@ extension ExerciseTableVC: UITableViewDataSource {
 extension ExerciseTableVC: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		print("Selected \(indexPath.row)")
+		exerciseTableViewDelegate?.selectedCell(section: indexPath.section, row: indexPath.row)
 		let key = exercisesViewModel.exercisesOrder[indexPath.section]
 		if let exerciseViewModel = exercisesViewModel.exercisesDict[key]?[indexPath.row] {
-			let exerciseDetailVC = ExerciseDetailVC(viewModel: exerciseViewModel)
-			exerciseDetailVC.modalTransitionStyle = .coverVertical
-			present(exerciseDetailVC, animated: true)
+			exerciseTableViewDelegate?.selectedExercise(excerise: exerciseViewModel)
 		}
+	}
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		exerciseTableViewDelegate?.heightForRowAt() ?? 75
 	}
 }
 
@@ -127,3 +125,8 @@ extension ExerciseTableVC: UISearchResultsUpdating {
 	}
 }
 
+protocol ExerciseTableViewDelegate: UITableViewDelegate {
+	func selectedCell(section: Int, row: Int)
+	func selectedExercise(excerise: ExerciseVM)
+	func heightForRowAt() -> CGFloat
+}

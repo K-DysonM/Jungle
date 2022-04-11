@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-class ExercisesViewModel {
+class ExercisesVM {
 	// Original data that doesn't change on search/filter
-	private var originalExercisesDict: [String: [ExerciseViewModel]] = [:]{
+	private var originalExercisesDict: [String: [ExerciseVM]] = [:]{
 		didSet{
 			originalExercisesOrder = originalExercisesDict.keys.sorted()
 		}
@@ -18,7 +18,7 @@ class ExercisesViewModel {
 	private var originalExercisesOrder: [String] = []
 	
 	// Data that does change on search/filter to be used by UI componenets
-	@Published var exercisesDict: [String: [ExerciseViewModel]] = [:] {
+	@Published var exercisesDict: [String: [ExerciseVM]] = [:] {
 		didSet {
 			exercisesOrder = exercisesDict.keys.sorted()
 		}
@@ -39,7 +39,7 @@ class ExercisesViewModel {
 			do {
 				let fileContent = try decorder.decode([Exercise].self, from: data)
 				fileContent.forEach { exercise in
-					let exerciseViewModel = ExerciseViewModel(exercise: exercise)
+					let exerciseViewModel = ExerciseVM(exercise: exercise)
 					if let firstChar = exercise.name.first {
 						if exercisesDict[String(firstChar)] != nil {
 							exercisesDict[String(firstChar)]!.append(exerciseViewModel)

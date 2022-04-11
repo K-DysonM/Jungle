@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eox-34-nJs">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -7,40 +8,38 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Exercises-->
-        <scene sceneID="lty-y8-Zqe">
+        <!--HistoryVC-->
+        <scene sceneID="Qwd-kw-caM">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SSB-KV-YLC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Exercises" image="figure.walk.circle" catalog="system" id="hI2-8n-7AB"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MxB-Yu-1gf">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="HJx-Q0-aa6" kind="relationship" relationship="rootViewController" id="yHB-BO-ck2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yKc-8t-zgd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FkO-cd-Xel" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="9gA-sb-5VB" customClass="HistoryVC" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fk2-V9-TgQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HUD-W3-Z07"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BFS-4E-ZyZ"/>
+                </viewController>
             </objects>
-            <point key="canvasLocation" x="915.94202898550736" y="131.91964285714286"/>
+            <point key="canvasLocation" x="1848" y="-550"/>
         </scene>
-        <!--Exercise TableVC-->
+        <!--Exercises-->
         <scene sceneID="e5i-eW-M9H">
             <objects>
-                <viewController id="HJx-Q0-aa6" customClass="ExerciseTableVC" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HJx-Q0-aa6" customClass="ExerciseVC" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2bZ-H7-DuI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="T2b-bt-bzX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Exercises" image="figure.walk.circle" catalog="system" id="qu4-he-CYI"/>
                     <navigationItem key="navigationItem" id="zCS-9h-iIB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zHg-d4-9xH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1847.826086956522" y="131.91964285714286"/>
+            <point key="canvasLocation" x="938" y="138"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="FaZ-fg-i32">
@@ -54,7 +53,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="Dvy-na-xX6" kind="relationship" relationship="viewControllers" id="A9j-22-lLc"/>
-                        <segue destination="SSB-KV-YLC" kind="relationship" relationship="viewControllers" id="XEt-gB-8Wa"/>
+                        <segue destination="HJx-Q0-aa6" kind="relationship" relationship="viewControllers" id="pge-94-3uP"/>
+                        <segue destination="k2p-1m-Y9Q" kind="relationship" relationship="viewControllers" id="zPc-H3-uAd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UV9-ga-cLI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -66,7 +66,7 @@
             <objects>
                 <viewController id="2iA-Av-sXF" customClass="StartWorkoutVC" customModule="Jungle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dAs-iW-7T6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Lyt-2W-Dc2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -95,6 +95,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1TO-3a-hch" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="938" y="818"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="eLR-Wb-MdP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k2p-1m-Y9Q" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="history" id="5TV-Be-KEu"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qVd-h1-OB1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9gA-sb-5VB" kind="relationship" relationship="rootViewController" id="H1x-2V-tW3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l3j-Qg-rhJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="939" y="-550"/>
         </scene>
     </scenes>
     <resources>

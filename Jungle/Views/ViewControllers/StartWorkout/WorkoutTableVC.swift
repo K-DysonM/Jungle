@@ -9,7 +9,8 @@ import UIKit
 import Combine
 
 class WorkoutTableVC: UITableViewController {
-	var workoutViewModel = WorkoutViewModel()
+	var workoutViewModel = WorkoutVM()
+	var subscriptions = [AnyCancellable]()
 	
 	enum CellNames: String {
 		case SectionHeader = "InnerHeader"
@@ -22,17 +23,17 @@ class WorkoutTableVC: UITableViewController {
 		tableView.register(WorkoutTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: CellNames.SectionFooter.rawValue)
 		tableView.register(WorkoutSetHeaderTableViewCell.self, forCellReuseIdentifier: CellNames.SectionHeader.rawValue)
 		tableView.register(WorkoutSetTableViewCell.self, forCellReuseIdentifier: CellNames.SectionCell.rawValue)
+		
+		workoutViewModel.$workoutExercises.sink {_ in
+			DispatchQueue.main.async {
+				self.tableView.reloadData()
+			}
+		}.store(in: &subscriptions)
     }
 	
 	@objc func addRowAtSection(_ sender: UITapGestureRecognizer) {
 		guard let section  = sender.view?.tag else { return }
 		workoutViewModel.addSetForWorkout(section)
-		let new_row = workoutViewModel.workouts[section].count
-		let indexPath = IndexPath(row: new_row + 1, section: section)
-		
-		DispatchQueue.main.async {
-			self.tableView.insertRows(at: [indexPath], with: .left)
-		}
 	}
 
     // MARK: - Table view data source
@@ -41,11 +42,11 @@ class WorkoutTableVC: UITableViewController {
 	 this is why row is always offset by one to compensate that 'header' row
 	 */
     override func numberOfSections(in tableView: UITableView) -> Int {
-		return workoutViewModel.workouts.count
+		return workoutViewModel.workoutExercises.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return workoutViewModel.workouts[section].count + 1
+		return workoutViewModel.workoutExercises[section].sets.count + 1
     }
 	
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -57,7 +58,7 @@ class WorkoutTableVC: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return "Workout Name"
+		return workoutViewModel.getExerciseForSection(section).name
 	}
 	
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -73,8 +74,8 @@ class WorkoutTableVC: UITableViewController {
 			return cell
 		} else {
 			let cell = tableView.dequeueReusableCell(withIdentifier: CellNames.SectionCell.rawValue, for: indexPath) as! WorkoutSetTableViewCell
-			cell.contentView.isUserInteractionEnabled = false
-			let currentSetViewModel = workoutViewModel.workouts[indexPath.section][indexPath.row-1]
+			cell.contentView.isUserInteractionEnabled = true
+			let currentSetViewModel = workoutViewModel.getSetForExercise(section: indexPath.section, row: indexPath.row-1)
 			cell.configure(setViewModel: currentSetViewModel)
 			cell.selectionStyle = .none
 			return cell
@@ -91,9 +92,9 @@ class WorkoutTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		guard !(indexPath.row == 0) else { return }
         if editingStyle == .delete {
-			workoutViewModel.workouts[indexPath.section].remove(at: indexPath.row-1)
-			workoutViewModel.updateOrderForWorkout(indexPath.section)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+			workoutViewModel.removeSetForExercise(section: indexPath.section, row: indexPath.row-1)
 		}
     }
 }
+
+

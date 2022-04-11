@@ -9,9 +9,9 @@ import UIKit
 import Charts
 
 class ExerciseDetailVC: UIViewController {
-	var exerciseViewModel: ExerciseViewModel
+	var exerciseViewModel: ExerciseVM
 	
-	init(viewModel: ExerciseViewModel) {
+	init(viewModel: ExerciseVM) {
 		exerciseViewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -73,9 +73,6 @@ class ExerciseDetailVC: UIViewController {
 		addSegmentVC(historyVC)
 		addSegmentVC(chartVC)
 		chartVC.lineChartView.delegate = self
-		
-		
-		
 		
 		historyVC.historyTableView.dataSource = self
     }

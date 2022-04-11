@@ -11,7 +11,6 @@ class StartWorkoutVC: UIViewController {
 
 	var startEmptyWorkoutButton: UIButton = {
 		var configuration = UIButton.Configuration.filled()
-		configuration.title = "Start an Empty Workout"
 		configuration.titleAlignment = .center
 		var container = AttributeContainer()
 		container.font = UIFont.boldSystemFont(ofSize: 16)
@@ -21,18 +20,17 @@ class StartWorkoutVC: UIViewController {
 		return button
 	}()
 	
+	var gridCollectionView: WorkoutTemplatesCollectionVC = {
+		var collectionView = WorkoutTemplatesCollectionVC(collectionViewLayout: UICollectionViewLayout())
+		return collectionView
+	}()
+	
 	override func loadView() {
 		view = UIView()
 		view.backgroundColor = .systemBackground
-		view.addSubview(startEmptyWorkoutButton)
-		startEmptyWorkoutButton.translatesAutoresizingMaskIntoConstraints = false
 		
-		NSLayoutConstraint.activate([
-			startEmptyWorkoutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-			startEmptyWorkoutButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-			startEmptyWorkoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-			startEmptyWorkoutButton.heightAnchor.constraint(equalToConstant: 50)
-		])
+		startEmptyWorkoutButton.pin(to: view, for: [.top,.left,.right], withPadding: 8)
+		startEmptyWorkoutButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
 	}
 	
     override func viewDidLoad() {
@@ -41,8 +39,14 @@ class StartWorkoutVC: UIViewController {
 		navigationController?.navigationBar.prefersLargeTitles = true
 		
 		startEmptyWorkoutButton.addTarget(self, action: #selector(startEmptyWorkout), for: .touchUpInside)
+		addGridCollectionContainer()
     }
-	
+	func addGridCollectionContainer () {
+		addChild(gridCollectionView)
+		gridCollectionView.view.pin(to: view, for: [.left,.right,.bottom], withPadding: 8)
+		gridCollectionView.view.topAnchor.constraint(equalTo: startEmptyWorkoutButton.bottomAnchor, constant: 20).isActive = true
+		gridCollectionView.didMove(toParent: self)
+	}
 	@objc func startEmptyWorkout() {
 		let destVC = WorkoutVC()
 		navigationController?.pushViewController(destVC, animated: true)

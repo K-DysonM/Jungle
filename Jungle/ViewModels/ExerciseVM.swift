@@ -9,14 +9,14 @@ import Foundation
 import Combine
 import Charts
 
-class ExerciseViewModel {
+class ExerciseVM {
 	private var exercise: Exercise
 	
 	@Published var name: String
 	@Published var bodyPart: String
 	@Published var lastSet: String
 	@Published var image: String
-	@Published var history: [HistoryViewModel]
+	@Published var history: [HistoryVM]
 	
 	init(exercise: Exercise) {
 		self.exercise = exercise
@@ -28,6 +28,10 @@ class ExerciseViewModel {
 		history = []
 		loadHistory()
 	}
+	func getExerciseId() -> Int {
+		return exercise.id
+	}
+	
 	// Fetches history for current exercise from core data
 	func loadHistory() {
 		let coreDataUtil = CoreDataUtil()
@@ -36,12 +40,11 @@ class ExerciseViewModel {
 			guard let result = result else { return }
 			
 			let models = result.compactMap {
-				HistoryViewModel(history: $0)
+				HistoryVM(history: $0)
 			}
 			self.history = models
 		}
 	}
-	
 	
 	func getChartData() -> [ChartDataEntry] {
 		var chartData: [ChartDataEntry] = history.compactMap { history in

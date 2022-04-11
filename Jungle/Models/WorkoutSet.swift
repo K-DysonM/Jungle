@@ -10,6 +10,6 @@ import Foundation
 struct WorkoutSet: Codable {
 	var order: Int
 	var isDone: Bool = false
-	var weight: Int
+	var weight: Double
 	var reps: Int
 }

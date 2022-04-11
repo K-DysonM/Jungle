@@ -7,13 +7,13 @@
 
 import Foundation
 
-class SetViewModel {
+class SetVM {
 	
 	private var set: WorkoutSet
 	
 	@Published var numberOrder: Int
 	@Published var isDone: Bool
-	@Published var weight: Int
+	@Published var weight: Double
 	@Published var reps: Int
 	
 	init(set: WorkoutSet) {
@@ -26,6 +26,13 @@ class SetViewModel {
 	
 	@objc func toggle(){
 		isDone.toggle()
+	}
+	
+	func updateReps(for reps: Int) {
+		self.reps = reps
+	}
+	func updateWeight(for weight: Double) {
+		self.weight = weight
 	}
 	
 }
