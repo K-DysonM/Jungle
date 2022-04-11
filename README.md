@@ -1,6 +1,10 @@
 # Jungle
 A workout app that helps you track your workouts
 
+Iteration 0.131 - UI Improvements + Fixed bugs + MVVM tableview + Add/Delete set functionality
+<p float="left">
+  <img alt="FirstScreen" src="https://user-images.githubusercontent.com/43551312/162258968-73864f2b-9ce1-4d2b-9999-3503c8f687a0.jpeg" width="50%">
+</p>
 
 Iteration 0.13 - "Start Workout" tableview + beginning of coredata 
 <p float="left">
