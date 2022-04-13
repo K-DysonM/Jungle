@@ -138,6 +138,14 @@ class WorkoutSetTableViewCell: UITableViewCell {
 			self.setLabel.text = String(order)
 		}.store(in: &subscriptions)
 		
+		setViewModel.$reps.sink {
+			self.repsTextField.text = String($0)
+		}.store(in: &subscriptions)
+		
+		setViewModel.$weight.sink {
+			self.poundsTextField.text = String($0)
+		}.store(in: &subscriptions)
+		
 		setViewModel.$isDone.sink { isDone in
 			if isDone {
 				self.backgroundColor = UIColor(named: "SelectionColor")!.withAlphaComponent(0.2)

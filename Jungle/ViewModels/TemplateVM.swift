@@ -48,14 +48,15 @@ class TemplateVM {
 	private func getWorkoutExercise(entity: ExerciseEntity) -> WorkoutExercise?{
 		guard let exercise = getExerciseById(Int(entity.exercise_ID)) else { return nil }
 		let sets = entity.sets as! Set<SetEntity>
-		var setViewModels: [SetVM] = []
+		var setViewModels: [SetVM?] = Array(repeating: nil, count: sets.count)
 		sets.forEach { setEntity in
 			let workoutSet = WorkoutSet(order: Int(setEntity.order)-1, weight: setEntity.weight, reps: Int(setEntity.reps))
 			let newVM = SetVM(set: workoutSet)
-			setViewModels.append(newVM)
+			setViewModels[Int(setEntity.order)-1] = newVM
 		}
+		let nonNilSetVMs = setViewModels.compactMap { $0 }
 		
-		return WorkoutExercise(exercise: ExerciseVM(exercise: exercise), sets: setViewModels)
+		return WorkoutExercise(exercise: ExerciseVM(exercise: exercise), sets: nonNilSetVMs)
 	}
 	
 	func getExerciseById(_ id: Int) -> Exercise?{
