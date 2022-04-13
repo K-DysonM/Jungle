@@ -50,6 +50,7 @@ class WorkoutTemplateCell: UICollectionViewCell {
 		[titleLabel, subtitleLabel].forEach {
 			mainStackView.addArrangedSubview($0)
 		}
+		
 		mainStackView.pin(to: self.contentView, withPadding: 14)
 		layer.borderColor = UIColor.systemGray5.cgColor
 		layer.borderWidth = 1.0

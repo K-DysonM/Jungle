@@ -50,7 +50,7 @@ class CircleView: UIView {
 	}
 	
 	func turnOn() {
-		circleLabel.backgroundColor = .green
+		circleLabel.backgroundColor = .green.withAlphaComponent(0.7)
 	}
 	
 	func turnOff() {

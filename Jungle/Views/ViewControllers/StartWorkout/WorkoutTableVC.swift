@@ -8,21 +8,31 @@
 import UIKit
 import Combine
 
+fileprivate enum CellNames: String {
+	case SectionHeader = "InnerHeader"
+	case SectionFooter = "InnerFooter"
+	case SectionCell = "Cell"
+}
+
 class WorkoutTableVC: UITableViewController {
-	var workoutViewModel = WorkoutVM()
+	var workoutViewModel: WorkoutVM
 	var subscriptions = [AnyCancellable]()
 	
-	enum CellNames: String {
-		case SectionHeader = "InnerHeader"
-		case SectionFooter = "InnerFooter"
-		case SectionCell = "Cell"
+	init(workoutViewModel: WorkoutVM = WorkoutVM()) {
+		self.workoutViewModel = workoutViewModel
+		super.init(style: .insetGrouped)
 	}
-
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		tableView.register(WorkoutTableHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: CellNames.SectionFooter.rawValue)
 		tableView.register(WorkoutSetHeaderTableViewCell.self, forCellReuseIdentifier: CellNames.SectionHeader.rawValue)
 		tableView.register(WorkoutSetTableViewCell.self, forCellReuseIdentifier: CellNames.SectionCell.rawValue)
+		tableView.rowHeight = 50
 		
 		workoutViewModel.$workoutExercises.sink {_ in
 			DispatchQueue.main.async {
@@ -30,6 +40,7 @@ class WorkoutTableVC: UITableViewController {
 			}
 		}.store(in: &subscriptions)
     }
+	
 	
 	@objc func addRowAtSection(_ sender: UITapGestureRecognizer) {
 		guard let section  = sender.view?.tag else { return }
@@ -39,7 +50,7 @@ class WorkoutTableVC: UITableViewController {
     // MARK: - Table view data source
 	/*
 	 Every section's first row is a 'header' explaining the contents of the row
-	 this is why row is always offset by one to compensate that 'header' row
+	 this is why row is always offset by one to compensate for that 'header' row
 	 */
     override func numberOfSections(in tableView: UITableView) -> Int {
 		return workoutViewModel.workoutExercises.count
@@ -65,9 +76,7 @@ class WorkoutTableVC: UITableViewController {
 		40
 	}
 	
-	/*
-	 The first row will be the header and the rest will represent a workout set
-	 */
+	/* The first row will be the header and the rest will represent a workout set */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if indexPath.row == 0 {
 			let cell = tableView.dequeueReusableCell(withIdentifier: CellNames.SectionHeader.rawValue, for: indexPath) as! WorkoutSetHeaderTableViewCell

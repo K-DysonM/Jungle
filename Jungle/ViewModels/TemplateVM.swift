@@ -42,7 +42,7 @@ class TemplateVM {
 			getWorkoutExercise(entity: $0)
 		}
 		
-		let workoutVm = WorkoutVM(workoutExercises: workoutExercises)
+		let workoutVm = WorkoutVM(workoutExercises: workoutExercises, withName: entity.name!)
 		return workoutVm
 	}
 	private func getWorkoutExercise(entity: ExerciseEntity) -> WorkoutExercise?{
@@ -50,7 +50,7 @@ class TemplateVM {
 		let sets = entity.sets as! Set<SetEntity>
 		var setViewModels: [SetVM] = []
 		sets.forEach { setEntity in
-			let workoutSet = WorkoutSet(order: Int(setEntity.order), weight: setEntity.weight, reps: Int(setEntity.reps))
+			let workoutSet = WorkoutSet(order: Int(setEntity.order)-1, weight: setEntity.weight, reps: Int(setEntity.reps))
 			let newVM = SetVM(set: workoutSet)
 			setViewModels.append(newVM)
 		}

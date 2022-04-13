@@ -12,5 +12,5 @@ enum WorkoutDetail: String {
 	case Previous = "Previous"
 	case Pounds = "lbs"
 	case Reps = "Reps"
-	case Done = "✅"
+	case Done = "☑️"
 }

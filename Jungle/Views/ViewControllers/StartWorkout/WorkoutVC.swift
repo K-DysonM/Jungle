@@ -7,45 +7,54 @@
 
 import UIKit
 
-#warning("I want to move the main view model into the parent instead of the child")
-class WorkoutVC: UIViewController{
-	var exerciseTableVC: UIViewController?
-	let coreDataUtil = CoreDataUtil()
+fileprivate enum WorkoutVCInfo: String {
+	case AlertTitle 			   = "Save Workout"
+	case AlertMessage 			   = "Do you want to save this workout as a template for future use?"
+	case AlertTextFieldPlaceholder = "Enter a template name"
+	case AlertSaveAction 		   = "Save"
+	case AlertCancelAction 		   = "Cancel"
+	case NavigationTitle 		   = "Workout"
+	case NavigationSaveTitle       = "Save as"
+	case NavigationFinishTitle     = "Finish"
+	case ButtonAddExercises        = "Add Exercises"
+	case ButtonCancel              = "Cancel Workout"
 	
+}
+
+class WorkoutVC: UIViewController{
+	var workoutViewModel = WorkoutVM()
+	var exerciseTableVC: UIViewController?
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		view.backgroundColor = .systemBackground
+		
+		addContainerVC(tableVC)
+		navigationBarSetup()
+		workoutOptionsSetup()
+	}
 	
 	// MARK: - UI Elements
-	var addExercisesButton: UIButton = {
-		var configuration = UIButton.Configuration.tinted()
-		configuration.titleAlignment = .center
-		var container = AttributeContainer()
-		container.font = UIFont.boldSystemFont(ofSize: 14)
-		configuration.attributedTitle = AttributedString("Add Exercises", attributes: container)
-		
-		var button = UIButton(configuration: configuration)
+	var addExercisesButton: SecondaryTintedButton = {
+		var button = SecondaryTintedButton(title: WorkoutVCInfo.ButtonAddExercises.rawValue)
 		return button
 	}()
-	var cancelWorkoutButton: UIButton = {
-		var configuration = UIButton.Configuration.tinted()
-		configuration.titleAlignment = .center
-		configuration.baseBackgroundColor = .systemRed
-		configuration.baseForegroundColor = .systemRed
-		var container = AttributeContainer()
-		container.font = UIFont.boldSystemFont(ofSize: 14)
-		configuration.attributedTitle = AttributedString("Cancel Workout", attributes: container)
-		
-		var button = UIButton(configuration: configuration)
+	var cancelWorkoutButton: SecondaryTintedButton = {
+		var button = SecondaryTintedButton(title: WorkoutVCInfo.ButtonCancel.rawValue, color: .systemRed)
 		return button
 	}()
 	
-	var tableVC: WorkoutTableVC = {
-		let tableVC = WorkoutTableVC(style: .insetGrouped)
+	var tableVC: WorkoutTableVC!
+	
+	override func loadView() {
+		view = UIView()
+		view.backgroundColor = .systemBackground
+		tableVC = WorkoutTableVC(workoutViewModel: workoutViewModel)
 		tableVC.tableView.showsVerticalScrollIndicator = false
 		tableVC.view.backgroundColor = .clear
-		return tableVC
-	}()
+	}
 	
-	// Combines two buttons into view to represent any major actions a user can perform
-	// i.e "Add Exercises", and "Cancel Workout"
+	// MARK: - Layout UI
 	func createWorkoutOptionsView() -> UIView{
 		let optionsView = UIStackView(frame: CGRect(x: 0, y: 0, width: 200, height: 128))
 		optionsView.addArrangedSubview(addExercisesButton)
@@ -55,31 +64,26 @@ class WorkoutVC: UIViewController{
 		optionsView.distribution = .fillEqually
 		optionsView.spacing = 8
 		optionsView.isLayoutMarginsRelativeArrangement = true
-		//optionsView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+		optionsView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
 
 		return optionsView
 	}
 	
-	
-    override func viewDidLoad() {
-        super.viewDidLoad()
-		view.backgroundColor = .systemBackground
-
-		addContainerVC(tableVC)
-		navigationBarSetup()
-		workoutOptionsSetup()
-    }
-	/* Primary ViewDidLoad methods */
 	func addContainerVC (_ vc: UIViewController) {
 		addChild(vc)
 		vc.view.pin(to: view)
 		vc.didMove(toParent: self)
 	}
+	
+	// MARK: - Configure UI
 	func navigationBarSetup() {
-		title = "Workout"
-		let heartButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveAsTemplate))
-		let finishButton = UIBarButtonItem(title: "Finish", style: .plain, target: self, action: #selector(finishWorkout))
-		navigationItem.rightBarButtonItems = [heartButton, finishButton]
+		title = WorkoutVCInfo.NavigationTitle.rawValue
+		let heartButton = UIBarButtonItem(title: WorkoutVCInfo.NavigationSaveTitle.rawValue,
+										  style: .plain,
+										  target: self, action: #selector(saveAsTemplate))
+		let finishButton = UIBarButtonItem(title: WorkoutVCInfo.NavigationFinishTitle.rawValue, style: .plain, target: self, action: #selector(finishWorkout))
+		navigationItem.rightBarButtonItem = finishButton
+		navigationItem.leftBarButtonItem = heartButton
 		navigationItem.hidesBackButton = true
 	}
 	func workoutOptionsSetup(){
@@ -88,7 +92,6 @@ class WorkoutVC: UIViewController{
 		cancelWorkoutButton.addTarget(self, action: #selector(cancelWorkout), for: .touchUpInside)
 	}
 	
-	/* Secondary ViewDidLoad methods */
 	@objc func addExercise(){
 		let navController = UINavigationController(rootViewController:  ExerciseTableVC(withDelegate: self))
 		exerciseTableVC = navController
@@ -99,42 +102,36 @@ class WorkoutVC: UIViewController{
 		navigationController?.popViewController(animated: true)
 	}
 	@objc func finishWorkout() {
-		let finishedSets = tableVC.workoutViewModel.workoutExercises.compactMap { (workoutExercise: WorkoutExercise) -> WorkoutExercise? in
-			let newSets = workoutExercise.sets.filter { $0.isDone == true }
-			if newSets.isEmpty {
-				return nil
-			}
-			let newWorkout = WorkoutExercise(exercise: workoutExercise.exercise, sets: newSets)
-			return newWorkout
-		}
-		coreDataUtil.postWorkout(for: finishedSets)
+		workoutViewModel.finishWorkout()
 		navigationController?.popViewController(animated: true)
 	}
 	@objc func saveAsTemplate() {
-		let ac = UIAlertController(title: "Save Workout",message: "Do you want to save this workout as a template for future use?", preferredStyle: .alert)
-		let yesAlert = UIAlertAction(title: "Save", style: .default) { action in
-			self.helperSave()
+		let ac = UIAlertController(title: WorkoutVCInfo.AlertTitle.rawValue,message: WorkoutVCInfo.AlertMessage.rawValue, preferredStyle: .alert)
+		ac.addTextField {
+			$0.placeholder = WorkoutVCInfo.AlertTextFieldPlaceholder.rawValue
 		}
-		let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+		let yesAlert = UIAlertAction(title: WorkoutVCInfo.AlertSaveAction.rawValue, style: .default) { [weak self] action in
+			let name = ac.textFields?.first?.text ?? WorkoutVCInfo.NavigationTitle.rawValue
+			self?.workoutViewModel.saveAs(name: name)
+		}
+		let cancel = UIAlertAction(title: WorkoutVCInfo.AlertCancelAction.rawValue, style: .cancel)
 		ac.addAction(yesAlert)
 		ac.addAction(cancel)
 		
 		present(ac, animated: true)
 	}
-	private func helperSave() {
-		coreDataUtil.postTemplate(for: tableVC.workoutViewModel.workoutExercises)
-	}
+	
 }
+
+// MARK: - ExerciseTableViewDelegate
 extension WorkoutVC: ExerciseTableViewDelegate {
 	func heightForRowAt() -> CGFloat {
 		75
 	}
 	func selectedExercise(excerise: ExerciseVM) {
-		print(excerise.name)
-		tableVC.workoutViewModel.addExerciseToWorkout(excerise)
+		workoutViewModel.addExerciseToWorkout(excerise)
 		exerciseTableVC?.dismiss(animated: true)
 	}
 	func selectedCell(section: Int, row: Int) {
-		print(section, row)
 	}
 }

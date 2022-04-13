@@ -8,7 +8,10 @@
 import UIKit
 import Combine
 
-private let reuseIdentifier = "Cell"
+
+fileprivate enum CellNames: String {
+	case TemplateCell = "Cell"
+}
 
 class WorkoutTemplatesCollectionVC: UICollectionViewController {
 
@@ -21,7 +24,7 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
     }
 	
 	func setUpCollectionView() {
-		collectionView.register(WorkoutTemplateCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+		collectionView.register(WorkoutTemplateCell.self, forCellWithReuseIdentifier: CellNames.TemplateCell.rawValue)
 		collectionView.register(WorkoutTemplateHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader , withReuseIdentifier: "Header")
 		
 		let layout = UICollectionViewFlowLayout()
@@ -50,9 +53,9 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! WorkoutTemplateCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellNames.TemplateCell.rawValue, for: indexPath) as! WorkoutTemplateCell
 		let currentTemplate = templateVM.templates[indexPath.row]
-		cell.titleLabel.text = "Push Workout"
+		cell.titleLabel.text = currentTemplate.name
 		cell.subtitleLabel.text = currentTemplate.string()
         // Configure the cell
     
@@ -63,13 +66,10 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
 		switch kind {
 		case UICollectionView.elementKindSectionHeader:
 			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! WorkoutTemplateHeaderView
-
-			print("got correct one")
 			headerView.headerTitleLabel.textAlignment = .left
 			headerView.headerTitleLabel.text = "Example Templates"
 			return headerView
 		default:
-			print("Invalid element")
 			assert(false)
 		}
 	}
@@ -77,7 +77,7 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let currentTemplate = templateVM.templates[indexPath.row]
 		let start_workout = WorkoutVC()
-		start_workout.tableVC.workoutViewModel = currentTemplate
+		start_workout.workoutViewModel = currentTemplate
 		navigationController?.pushViewController(start_workout, animated: true)
 	}
 

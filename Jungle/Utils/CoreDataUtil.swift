@@ -34,9 +34,10 @@ class CoreDataUtil {
 		}
 	}
 	
-	func postTemplate(for workoutData: [WorkoutExercise]) {
+	func postTemplate(for workoutData: [WorkoutExercise], named name: String) {
 		let template = TemplateEntity(context: managedObjectContext)
 		template.template_ID = UUID()
+		template.name = name
 		
 		workoutData.forEach { data in
 			let exercise = ExerciseEntity(context: managedObjectContext)

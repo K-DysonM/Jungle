@@ -140,7 +140,7 @@ class WorkoutSetTableViewCell: UITableViewCell {
 		
 		setViewModel.$isDone.sink { isDone in
 			if isDone {
-				self.backgroundColor = .green.withAlphaComponent(0.2)
+				self.backgroundColor = UIColor(named: "SelectionColor")!.withAlphaComponent(0.2)
 				self.circleView.turnOn()
 			} else {
 				self.backgroundColor = .systemBackground
