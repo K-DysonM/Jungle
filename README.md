@@ -2,7 +2,7 @@
 A workout app that helps you track your workouts
 
 
-Iteration 0.14 - Templates + Fixed bugs - Love the way its coming along so far - April 12th
+Iteration 0.14 - Templates + Fixed bugs + Beginning of History Tab - Love the way its coming along so far - April 12th
 <p float="left">
   <img alt="Templates" src="https://user-images.githubusercontent.com/43551312/163092623-d178816f-7cad-4660-a96d-edf76ecf462f.gif" width="40%">
   <img alt="Templates" src="https://user-images.githubusercontent.com/43551312/163092771-0eb198db-f134-41bd-a90a-71d6672a5eb9.jpeg" width="40%">
