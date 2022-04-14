@@ -16,19 +16,30 @@ class CoreDataUtil {
 		managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	}
 	
-	func fetchHistoryForExerciseID(_ id: Int, completionHandler: @escaping ([HistoryEntity]?, Error?) -> Void) {
-		let fetchRequest = HistoryEntity.fetchRequest()
+	func fetchHistoryForExerciseID(_ id: Int, completionHandler: @escaping ([SetEntity]?, Error?) -> Void) {
+		let fetchRequest = SetEntity.fetchRequest()
 		fetchRequest.sortDescriptors =
 		[
-			NSSortDescriptor(keyPath: \HistoryEntity.date, ascending: false),
+			NSSortDescriptor(keyPath: \SetEntity.parentExercise?.workout?.date, ascending: false),
+			NSSortDescriptor(keyPath: \SetEntity.weight, ascending: false)
 		]
-		
 		fetchRequest.predicate = NSPredicate(
-			format: "exercise_ID == %d", Int64(id)
+			format: "parentExercise.exercise_ID == %d", Int64(id)
 		)
 		do {
 			let results = try managedObjectContext.fetch(fetchRequest)
-			completionHandler(results, nil)
+			var dict: [Date: Int] = [:]
+			let groupedByDate = results.compactMap { (setEntity: SetEntity) -> SetEntity? in
+				guard let date = setEntity.parentExercise?.workout?.date else { return nil }
+				if dict[date] == nil {
+					dict[date] = 1
+					return setEntity
+				} else {
+					return nil
+				}
+			}
+			// get just the max weight on each date
+			completionHandler(groupedByDate, nil)
 		} catch {
 			completionHandler(nil, error)
 		}
@@ -91,7 +102,10 @@ class CoreDataUtil {
 	}
 	func fetchWorkouts(completionHandler: @escaping ([WorkoutEntity]?, Error?) -> Void) {
 		let fetchRequest = WorkoutEntity.fetchRequest()
-		
+		fetchRequest.sortDescriptors =
+		[
+			NSSortDescriptor(keyPath: \WorkoutEntity.date, ascending: false)
+		]
 		do {
 			let results = try managedObjectContext.fetch(fetchRequest)
 			completionHandler(results, nil)
@@ -107,6 +121,20 @@ class CoreDataUtil {
 			completionHandler(results, nil)
 		} catch {
 			completionHandler(nil, error)
+		}
+	}
+	func deleteTemplate(template_id: UUID) {
+		let fetchRequest = TemplateEntity.fetchRequest()
+		fetchRequest.predicate = NSPredicate(
+			format: "template_ID == %@", template_id as CVarArg
+		)
+		fetchRequest.fetchLimit = 1
+		do {
+			let results = try managedObjectContext.fetch(fetchRequest)
+			managedObjectContext.delete(results[0])
+			try managedObjectContext.save()
+		} catch {
+			print("error")
 		}
 	}
 	

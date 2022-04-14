@@ -94,9 +94,9 @@ class HistoryTableViewCell: UITableViewCell {
 	}
 	
 	// MARK: - Configure UI
-	func configure(viewModel: HistoryVM) {
-		subtitle.text = viewModel.time
-		setSubtitle.text = viewModel.bestSet
+	func configure(viewModel: SetVM) {
+		subtitle.text = viewModel.date?.dateString("EEEE, MMMM dd YYYY") ?? ""
+		setSubtitle.text = "\(viewModel.weight) lb x \(viewModel.reps)"
 	}
 
 }

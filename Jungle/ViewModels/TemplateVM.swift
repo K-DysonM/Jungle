@@ -7,11 +7,17 @@
 
 import Foundation
 
+struct Template {
+	var template_id: UUID
+	var name: String
+	var workoutVM: WorkoutVM
+}
+
 class TemplateVM {
 	
 	private let coreDataUtil = CoreDataUtil()
 	
-	@Published var templates: [WorkoutVM] = []
+	@Published var templates: [Template] = []
 	
 	var exercises: [Exercise] = []
 	
@@ -35,15 +41,19 @@ class TemplateVM {
 	func clearHistory() {
 		coreDataUtil.clearDatabase()
 	}
+	func deleteTemplate(_ template: Template) {
+		coreDataUtil.deleteTemplate(template_id: template.template_id)
+	}
 	
-	func getWorkoutViewModel( entity: TemplateEntity) -> WorkoutVM{
+	func getWorkoutViewModel( entity: TemplateEntity) -> Template{
 		let exercises = entity.exercises as! Set<ExerciseEntity>
 		let workoutExercises = exercises.compactMap {
 			getWorkoutExercise(entity: $0)
 		}
 		
 		let workoutVm = WorkoutVM(workoutExercises: workoutExercises, withName: entity.name!)
-		return workoutVm
+		let template = Template(template_id: entity.template_ID!, name: entity.name!, workoutVM: workoutVm)
+		return template
 	}
 	private func getWorkoutExercise(entity: ExerciseEntity) -> WorkoutExercise?{
 		guard let exercise = getExerciseById(Int(entity.exercise_ID)) else { return nil }

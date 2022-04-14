@@ -16,7 +16,7 @@ class ExerciseVM {
 	@Published var bodyPart: String
 	@Published var lastSet: String
 	@Published var image: String
-	@Published var history: [HistoryVM]
+	@Published var history: [SetVM]
 	
 	init(exercise: Exercise) {
 		self.exercise = exercise
@@ -40,7 +40,7 @@ class ExerciseVM {
 			guard let result = result else { return }
 			
 			let models = result.compactMap {
-				HistoryVM(history: $0)
+				SetVM(history: $0)
 			}
 			self.history = models
 		}
@@ -48,8 +48,8 @@ class ExerciseVM {
 	
 	func getChartData() -> [ChartDataEntry] {
 		var chartData: [ChartDataEntry] = history.compactMap { history in
-			if let timeInterval = history.history.date?.timeIntervalSince1970 {
-				let temp = ChartDataEntry(x: timeInterval, y: Double(history.history.best_set))
+			if let timeInterval = history.date?.timeIntervalSince1970 {
+				let temp = ChartDataEntry(x: timeInterval, y: history.weight)
 				return temp
 			} else {
 				return nil

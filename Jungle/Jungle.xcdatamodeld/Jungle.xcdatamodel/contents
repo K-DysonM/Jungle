@@ -31,7 +31,7 @@
         <element name="ExerciseEntity" positionX="-232.887939453125" positionY="62.8272705078125" width="128" height="103"/>
         <element name="HistoryEntity" positionX="156.173095703125" positionY="-53.63592529296875" width="128" height="88"/>
         <element name="SetEntity" positionX="10.188232421875" positionY="77.32232666015625" width="128" height="103"/>
-        <element name="TemplateEntity" positionX="-50.9700927734375" positionY="-172.4721069335938" width="128" height="74"/>
+        <element name="TemplateEntity" positionX="-50.9700927734375" positionY="-172.4721069335938" width="128" height="88"/>
         <element name="WorkoutEntity" positionX="-232.9452514648438" positionY="-129.1280517578125" width="128" height="88"/>
     </elements>
 </model>

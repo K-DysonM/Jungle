@@ -40,6 +40,38 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
 				self.collectionView.reloadData()
 			}
 		}.store(in: &subscriptions)
+		
+		let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(longPressGR:)))
+		longPressGR.minimumPressDuration = 0.5
+		longPressGR.delaysTouchesBegan = true
+		self.collectionView.addGestureRecognizer(longPressGR)
+	}
+	@objc
+	func handleLongPress(longPressGR: UILongPressGestureRecognizer) {
+		guard longPressGR.state == .began else { return }
+		
+		let point = longPressGR.location(in: self.collectionView)
+		let indexPath = self.collectionView.indexPathForItem(at: point)
+		let generator = UIImpactFeedbackGenerator(style: .heavy)
+		generator.impactOccurred()
+		if let indexPath = indexPath {
+			let currentTemplate = self.templateVM.templates[indexPath.row]
+			let ac = UIAlertController(title: nil, message: "Delete the '\(currentTemplate.name)' template?", preferredStyle: .alert)
+			let action = UIAlertAction(title: "Delete", style: .destructive) { _ in
+				print("Delete")
+				self.templateVM.deleteTemplate(currentTemplate)
+			}
+			let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+			ac.addAction(action)
+			ac.addAction(cancel)
+			present(ac, animated: true)
+			
+			var cell = self.collectionView.cellForItem(at: indexPath)
+			
+			print(indexPath.row)
+		} else {
+			print("Could not find index path")
+		}
 	}
 
     // MARK: UICollectionViewDataSource
@@ -56,7 +88,7 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellNames.TemplateCell.rawValue, for: indexPath) as! WorkoutTemplateCell
 		let currentTemplate = templateVM.templates[indexPath.row]
 		cell.titleLabel.text = currentTemplate.name
-		cell.subtitleLabel.text = currentTemplate.string()
+		cell.subtitleLabel.text = currentTemplate.workoutVM.string()
         // Configure the cell
     
         return cell
@@ -67,7 +99,7 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
 		case UICollectionView.elementKindSectionHeader:
 			let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as! WorkoutTemplateHeaderView
 			headerView.headerTitleLabel.textAlignment = .left
-			headerView.headerTitleLabel.text = "Example Templates"
+			headerView.headerTitleLabel.text = "Templates"
 			return headerView
 		default:
 			assert(false)
@@ -77,7 +109,8 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let currentTemplate = templateVM.templates[indexPath.row]
 		let start_workout = WorkoutVC()
-		start_workout.workoutViewModel = currentTemplate
+		start_workout.title = currentTemplate.name
+		start_workout.workoutViewModel = currentTemplate.workoutVM
 		navigationController?.pushViewController(start_workout, animated: true)
 	}
 
