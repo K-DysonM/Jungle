@@ -108,10 +108,9 @@ class WorkoutTemplatesCollectionVC: UICollectionViewController {
 	
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let currentTemplate = templateVM.templates[indexPath.row]
-		let start_workout = WorkoutVC()
-		start_workout.title = currentTemplate.name
-		start_workout.workoutViewModel = currentTemplate.workoutVM
-		navigationController?.pushViewController(start_workout, animated: true)
+		let newWorkoutVM = currentTemplate.workoutVM.copy() as! WorkoutVM
+		let newWorkoutVC = WorkoutVC(workoutVM: newWorkoutVM)
+		navigationController?.pushViewController(newWorkoutVC, animated: true)
 	}
 
 }

@@ -96,12 +96,25 @@ class WorkoutTableVC: UITableViewController {
 	}
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-		indexPath.row == 0 ? false : true
+		true
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		guard !(indexPath.row == 0) else { return }
         if editingStyle == .delete {
-			workoutViewModel.removeSetForExercise(section: indexPath.section, row: indexPath.row-1)
+			if indexPath.row == 0 {
+				// Prompt confirmation for entire section
+				let exerciseName = workoutViewModel.getExerciseForSection(indexPath.section).name
+				let ac = UIAlertController(title: "Remove Exercise?", message: "This removes '\(exerciseName)' and all of its set from your workout", preferredStyle: .alert)
+				let delete = UIAlertAction(title: "Remove", style: .destructive) { _ in
+					// Remove from viewmodel
+					self.workoutViewModel.removeExercise(section: indexPath.section)
+				}
+				let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+				ac.addAction(delete)
+				ac.addAction(cancel)
+				present(ac, animated: true)
+			} else {
+				workoutViewModel.removeSetForExercise(section: indexPath.section, row: indexPath.row-1)
+			}
 		}
     }
 }

@@ -22,8 +22,16 @@ fileprivate enum WorkoutVCInfo: String {
 }
 
 class WorkoutVC: UIViewController{
-	var workoutViewModel = WorkoutVM()
+	var workoutViewModel: WorkoutVM
 	var exerciseTableVC: UIViewController?
+	
+	init(workoutVM: WorkoutVM = WorkoutVM()) {
+		self.workoutViewModel = workoutVM
+		super.init(nibName: nil, bundle: nil)
+	}
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -77,7 +85,7 @@ class WorkoutVC: UIViewController{
 	
 	// MARK: - Configure UI
 	func navigationBarSetup() {
-		title = WorkoutVCInfo.NavigationTitle.rawValue
+		title = workoutViewModel.name ?? WorkoutVCInfo.NavigationTitle.rawValue
 		let heartButton = UIBarButtonItem(title: WorkoutVCInfo.NavigationSaveTitle.rawValue,
 										  style: .plain,
 										  target: self, action: #selector(saveAsTemplate))

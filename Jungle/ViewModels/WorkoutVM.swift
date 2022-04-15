@@ -14,8 +14,8 @@ class WorkoutVM {
 	@Published var workoutExercises: [WorkoutExercise] = []
 	
 	var date: Date?
-	var name: String = ""
-	init(workoutExercises: [WorkoutExercise], withName: String = "Workout") {
+	var name: String?
+	init(workoutExercises: [WorkoutExercise], withName: String? = "Workout") {
 		self.workoutExercises = workoutExercises
 		self.name = withName
 	}
@@ -77,6 +77,9 @@ class WorkoutVM {
 		workoutExercises[section].sets.remove(at: row)
 		updateOrderForWorkout(section)
 	}
+	func removeExercise(section: Int) {
+		workoutExercises.remove(at: section)
+	}
 	func finishWorkout() {
 		let finishedSets = workoutExercises.compactMap { (workoutExercise: WorkoutExercise) -> WorkoutExercise? in
 			let newSets = workoutExercise.sets.filter { $0.isDone == true }
@@ -97,6 +100,22 @@ class WorkoutVM {
 struct WorkoutExercise {
 	var exercise : ExerciseVM
 	var sets : [SetVM]
+}
+
+// MARK: - NSCopying 
+extension WorkoutVM: NSCopying {
+	func copy(with zone: NSZone? = nil) -> Any {
+		let copyWorkoutExercises = workoutExercises.compactMap { workoutExercise -> WorkoutExercise in
+			let copySets = workoutExercise.sets.compactMap { SetVM in
+				SetVM.copy() as? SetVM
+			}
+			let copyWorkoutExercise = WorkoutExercise(exercise: workoutExercise.exercise, sets: copySets)
+			return copyWorkoutExercise
+		}
+		
+		let copy = WorkoutVM(workoutExercises: copyWorkoutExercises, withName: name)
+		return copy
+	}
 }
 
 
