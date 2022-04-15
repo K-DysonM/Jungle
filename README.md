@@ -1,6 +1,19 @@
 # Jungle
 A workout app that helps you track your workouts
 
+Iteration 0.15 + 0.16 - CoreData improvements + ViewModel Structs/Classes changes + Bug Fixes - April 14th 
+
+- All of the ViewModels are classes to utilize combine functionality but for a workout template I needed some of
+the benefits of structs. Primarily, changing values in the templateVM shouldn't cause lasting changes
+to the actual template but just the instance of it being created for a workout. Wasn't able to use structs because
+of Combine @Published properties being used so instead implemented NSCopying 
+-Added ability to remove sets + entire exercises from your workout using Combine + MVVM
+
+<p float="left">
+  <img alt="Remove Exercise" src="https://user-images.githubusercontent.com/43551312/163511788-ba0ad8d5-fd37-4df5-a1f1-773a0a559620.jpeg" width="40%">
+  <img alt="Remove Exercise" src="https://user-images.githubusercontent.com/43551312/163511843-f5cb8b84-a554-46ec-9780-667a45f37a69.jpeg" width="40%">
+</p>
+
 
 Iteration 0.14 - Templates + Fixed bugs + Beginning of History Tab - Love the way its coming along so far - April 12th
 <p float="left">
