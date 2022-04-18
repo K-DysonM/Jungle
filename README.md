@@ -11,7 +11,7 @@ A workout app that helps you track your workouts
 </p>
 
 <b> Things I Learned </b>
-- More Familiar with Core Data 
+- More familiar with Core Data 
 - Utilizing semantic colors to support light and dark mode
 - Better acquainted with creating UI strictly from Auto-Layout
 - Utilizing MVVM to help with code organization
