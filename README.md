@@ -1,5 +1,4 @@
 # Jungle
-A workout app that helps you track your workouts
 <p align="center">
   <img alt="LOGO" src="https://user-images.githubusercontent.com/43551312/163849445-914beb12-dbc9-42dd-a68a-a8b3f0c8e520.png" width="25%">
   <p align="center"> A workout app that helps you track your progress in the gym </p>
