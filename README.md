@@ -1,5 +1,25 @@
 # Jungle
 A workout app that helps you track your workouts
+<p align="center">
+  <img alt="LOGO" src="https://user-images.githubusercontent.com/43551312/163849445-914beb12-dbc9-42dd-a68a-a8b3f0c8e520.png" width="25%">
+  <p align="center"> A workout app that helps you track your progress in the gym </p>
+</p>
+<p float="center" align="center">
+  <img alt="Mockup1" src="https://user-images.githubusercontent.com/43551312/163851458-81316371-7b06-41c7-bd82-f4dd3da567e6.png" width="30%">
+  <img alt="Mockup2" src="https://user-images.githubusercontent.com/43551312/163851460-5bf099ff-0e26-4053-9495-0627d6e55bb8.png" width="30%">
+  <img alt="Mockup3" src="https://user-images.githubusercontent.com/43551312/163851461-e36c3e17-8d1f-4b5e-b49a-0f69f84476ba.png" width="30%">
+</p>
+
+<b> Things I Learned </b>
+- More Familiar with Core Data 
+- Utilizing semantic colors to support light and dark mode
+- Better acquainted with creating UI strictly from Auto-Layout
+- Utilizing MVVM to help with code organization
+- Creating charts on iOS via Charts swift package
+- Making custom models for JSON file reading 
+- Ability to make custom CollectionViewCells and TableViewCells
+
+# Updates - Iterations
 
 Iteration 0.15 + 0.16 - CoreData improvements + ViewModel Structs/Classes changes + Bug Fixes - April 14th 
 
